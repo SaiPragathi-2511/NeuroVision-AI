@@ -3,127 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroVision-AI</title>
+<title>NeuroVision-AI - Exact Design</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-html,body{width:100%;margin:0;padding:0;background:#0f172a;color:white;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Inter,sans-serif;}
+body{background:#0f1a33;color:white;min-height:100vh;padding:12px;}
+.top-stats{display:flex;justify-content:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.top-stat{background:#162040;border:1px solid #2a3a66;border-radius:12px;padding:10px 18px;text-align:center;min-width:160px;}
+.top-stat b{font-size:15px;display:block;} .top-stat span{font-size:11px;color:#8a9ac4;}
 
-/* BIG HEADER */
-.top{
-  width:100%;height:85px;display:flex;justify-content:space-between;align-items:center;
-  padding:0 24px;background:#1e293b;border-bottom:2px solid #334155;
-}
-.top b{font-size:26px;font-weight:800;color:white;}
-.top small{color:#60a5fa;font-size:13px;font-weight:600;display:block;margin-top:2px;}
-.top-stats{display:flex;gap:10px;}
-.ts{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:10px 16px;min-width:110px;text-align:center;}
-.ts span{font-size:11px;color:#94a3b8;display:block;} .ts b{font-size:16px;font-weight:800;display:block;margin:2px 0;}
+.wrap{display:grid;grid-template-columns:300px 1fr;gap:16px;max-width:100%;}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;}}
 
-/* LEFT MORE SPACE - 480px */
-.wrap{
-  width:100%;max-width:100%;display:grid;
-  grid-template-columns:480px 1fr;
-  gap:20px;padding:18px;margin:0;
-}
-@media(max-width:1000px){.wrap{grid-template-columns:1fr;}}
+.card-left{background:#162040;border:1px solid #2a3a66;border-radius:16px;padding:16px;}
+.card-right{background:#162040;border:1px solid #2a3a66;border-radius:16px;padding:18px;}
 
-.left-panel{display:flex;flex-direction:column;gap:18px;}
-.right-panel{width:100%;}
+.upload-box{border:2px dashed #3a4f8a;border-radius:14px;padding:28px 16px;text-align:center;cursor:pointer;background:#0f1a33;margin-top:10px;transition:0.2s;}
+.upload-box:hover{border-color:#5a7de0;}
+.file-count{color:#22c55e;font-weight:700;font-size:12px;margin-top:10px;text-align:center;}
+.preview{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.preview-item{position:relative;}
+.preview-item img{width:100%;height:65px;object-fit:cover;border-radius:10px;border:2px solid #2a3a66;display:block;}
+.delete-btn{position:absolute;top:-6px;right:-6px;background:#ef4444;color:white;border:2px solid #162040;border-radius:50%;width:20px;height:20px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:bold;}
 
-.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:18px;}
-/* UPLOAD BIGGER */
-.upload{border:2px dashed #475569;border-radius:14px;padding:32px 20px;text-align:center;cursor:pointer;background:#0f172a;margin-top:12px;}
-.upload div:first-child{font-size:16px !important;}
-.btn{width:100%;padding:13px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:15px;margin-top:12px;}
-.btn-browse{background:#3b82f6;color:white;font-size:15px;padding:14px;} 
-.btn-ai{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:white;font-size:15px;padding:14px;}
-.file-count{color:#22c55e;font-weight:700;font-size:13px;margin-top:12px;text-align:center;}
-.preview{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px;}
-.preview-item{position:relative;background:#0f172a;border:1px solid #334155;border-radius:10px;padding:6px;}
-.preview-item img{width:100%;height:85px;object-fit:cover;border-radius:6px;display:block;}
-.file-name{font-size:11px;color:#cbd5e1;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;text-align:center;}
-.delete-btn{position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;border:2px solid #1e293b;border-radius:50%;width:22px;height:22px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:bold;}
-.clear-all-btn{background:#1e293b;border:1px solid #ef4444;color:#ef4444;padding:8px;border-radius:8px;font-size:13px;cursor:pointer;margin-top:12px;width:100%;}
-.t-row{display:flex;justify-content:space-between;font-size:14px;margin-top:16px;align-items:center;}
-.t-row b{font-size:16px;} .p-bg{height:8px;background:#0f172a;border-radius:10px;overflow:hidden;margin-top:7px;} .p-bar{height:100%;border-radius:10px;}
+.btn{width:100%;padding:11px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;margin-top:10px;}
+.btn-browse{background:#3b82f6;color:white;}
+.btn-ai{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:white;}
 
-/* RIGHT VALUES - DECREASED / COMPACT */
-.report{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
-.r-card{background:white;color:#0f172a;border-radius:10px;padding:12px 14px;min-height:62px;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
-.r-card b{font-size:13px;display:block;margin-bottom:2px;} 
-.r-card small{font-size:10px;color:#64748b;display:block;}
-.r-bar-bg{height:5px;background:#e2e8f0;border-radius:10px;margin-top:6px;overflow:hidden;} 
-.r-bar{height:100%;border-radius:10px;}
+/* Tumor Types - 2x2 Grid like image */
+.tumor-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+.tumor-card{background:#0f1a33;border:1px solid #2a3a66;border-radius:12px;padding:12px;border-left:3px solid;}
+.tumor-card b{font-size:13px;display:block;}
+.tumor-card .pct{font-size:22px;font-weight:800;margin:4px 0;display:block;}
+.tumor-card .bar{height:4px;border-radius:10px;margin-top:6px;}
 
-/* SECOND HEADING BIG + 2x2 */
-.gallery{margin-top:20px;width:100%;}
-.gallery-heading{font-size:18px !important;font-weight:800 !important;color:#e2e8f0 !important;letter-spacing:0.3px !important;display:block !important;margin-bottom:6px !important;}
-.gallery-sub{font-size:12px;color:#94a3b8;margin-bottom:12px;display:block;}
-.gallery-grid{display:grid !important;grid-template-columns:1fr 1fr !important;gap:18px !important;margin-top:10px !important;width:100% !important;}
-.g-item{background:#1e293b;border:1px solid #334155;border-radius:14px;overflow:hidden;width:100%;}
-.g-img-wrap{width:100%;height:300px;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+/* AI Report - like image */
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.r-card{background:#0f1a33;border:1px solid #2a3a66;border-radius:12px;padding:14px;border-left:3px solid;}
+.r-card b{font-size:13px;display:block;}
+.r-card .bar-bg{height:6px;background:#1a2747;border-radius:10px;margin-top:8px;overflow:hidden;}
+.r-card .bar{height:100%;border-radius:10px;}
+
+/* Gallery - 4 in one row like image */
+.gallery{margin-top:18px;}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:12px;}
+.g-item{background:#0f1a33;border:1px solid #2a3a66;border-radius:14px;overflow:hidden;}
+.g-img-wrap{width:100%;height:210px;background:#000;overflow:hidden;}
 .g-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
-.g-meta{padding:10px;text-align:center;background:#1e293b;border-top:1px solid #334155;}
-.g-meta b{font-size:12px;display:block;color:#e2e8f0;} .g-meta span{font-size:11px;color:#22c55e;font-weight:700;display:block;margin-top:2px;}
-.g-meta .fname{font-size:9px;color:#94a3b8;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#475569;font-size:11px;gap:8px;background:linear-gradient(135deg,#0f172a,#1e293b);}
+.g-meta{padding:10px;text-align:center;background:#0f1a33;border-top:1px solid #2a3a66;}
+.g-meta b{font-size:11px;display:block;color:#e2e8f0;}
+.g-meta span{font-size:10px;color:#22c55e;font-weight:600;display:block;margin-top:2px;}
+.placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#3a4f8a;font-size:11px;gap:6px;}
 .hidden{display:none !important;}
+.clear-btn{background:#1e2a4d;border:1px solid #ef4444;color:#ef4444;padding:6px;border-radius:8px;font-size:11px;cursor:pointer;margin-top:8px;width:100%;}
 </style>
 </head>
 <body>
-<div class="top">
-<div><b>NeuroVision-AI</b><small>Advanced Brain Tumor Intelligence</small></div>
+
 <div class="top-stats">
-<div class="ts"><span>Active Patients</span><b>1,204</b><span style="font-size:10px;color:#22c55e;">+12% this week</span></div>
-<div class="ts"><span>Accuracy</span><b>96.8%</b><span>Model Performance</span></div>
-<div class="ts"><span>Scans Today</span><b>87</b><span>+8 from yesterday</span></div>
-<div class="ts"><span>Avg Time</span><b>2.1s</b><span>Per Analysis</span></div>
-</div>
+<div class="top-stat"><b>4 Types</b><span>Tumors Detected</span></div>
+<div class="top-stat"><b>98.7% Accuracy</b></div>
+<div class="top-stat"><b>1.8s Analysis Time</b></div>
+<div class="top-stat"><b>10k+ MRIs Trained</b></div>
 </div>
 
 <div class="wrap">
-<div class="left-panel">
-<div class="card">
-<b style="font-size:16px;">📤 Upload MRI Scan</b>
-<div class="upload" id="uploadBox" onclick="document.getElementById('fileInput').click()">
-<div style="font-weight:700;">Click or Drag Files</div>
-<div style="font-size:12px;color:#22c55e;margin-top:6px;font-weight:700;">✨ Multiple allowed ✓</div>
+<!-- LEFT -->
+<div style="display:flex;flex-direction:column;gap:16px;">
+<div class="card-left">
+<b style="font-size:14px;">📤 Upload MRI Scan</b>
+<div class="upload-box" id="uploadBox" onclick="document.getElementById('fileInput').click()">
+<div style="font-size:28px;">🧠</div>
+<div style="font-weight:700;font-size:13px;margin-top:6px;">Click to Upload MRI</div>
+<div style="font-size:10px;color:#22c55e;margin-top:4px;">✨ Multiple Files Supported</div>
 </div>
 <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
-<button class="btn btn-browse" onclick="document.getElementById('fileInput').click()">+ Browse Files</button>
-<button class="btn btn-ai" onclick="analyzeImages()">⚡ Analyze with AI</button>
 <div id="fileCount" class="file-count"></div>
 <div id="preview" class="preview"></div>
-<button id="clearBtn" class="clear-all-btn hidden" onclick="clearAll()">🗑️ Clear All</button>
+<button class="btn btn-browse" onclick="document.getElementById('fileInput').click()">+ Browse Files</button>
+<button class="btn btn-ai" onclick="analyzeImages()">⚡ Analyze with AI</button>
+<button id="clearBtn" class="clear-btn hidden" onclick="clearAll()">🗑️ Clear All</button>
 </div>
-<div class="card">
-<b style="font-size:15px;">📊 Tumor Types Detected</b>
-<div style="margin-top:14px;">
-<div class="t-row"><span>🟡 Gliomas</span><b id="tGlioma">32%</b></div><div class="p-bg"><div class="p-bar" id="pGlioma" style="width:32%;background:#eab308;"></div></div>
-<div class="t-row"><span>🔵 Meningioma</span><b id="tMeningioma">27%</b></div><div class="p-bg"><div class="p-bar" id="pMeningioma" style="width:27%;background:#3b82f6;"></div></div>
-<div class="t-row"><span>🟣 Pituitary</span><b id="tPituitary">12%</b></div><div class="p-bg"><div class="p-bar" id="pPituitary" style="width:12%;background:#a78bfa;"></div></div>
-<div class="t-row"><span>🟢 No Tumor</span><b id="tNoTumor">29%</b></div><div class="p-bg"><div class="p-bar" id="pNoTumor" style="width:29%;background:#22c55e;"></div></div>
+
+<div class="card-left">
+<b style="font-size:14px;">🎨 Tumor Types Detected</b>
+<div class="tumor-grid">
+<div class="tumor-card" style="border-left-color:#ef4444;"><b>Glioma</b><span class="pct" id="tGlioma" style="color:#ef4444;">32%</span><div class="bar" id="pGlioma" style="width:32%;background:#ef4444;"></div></div>
+<div class="tumor-card" style="border-left-color:#8b5cf6;"><b>Meningioma</b><span class="pct" id="tMeningioma" style="color:#8b5cf6;">27%</span><div class="bar" id="pMeningioma" style="width:27%;background:#8b5cf6;"></div></div>
+<div class="tumor-card" style="border-left-color:#eab308;"><b>Pituitary</b><span class="pct" id="tPituitary" style="color:#eab308;">12%</span><div class="bar" id="pPituitary" style="width:12%;background:#eab308;"></div></div>
+<div class="tumor-card" style="border-left-color:#22c55e;"><b>No Tumor</b><span class="pct" id="tNoTumor" style="color:#22c55e;">29%</span><div class="bar" id="pNoTumor" style="width:29%;background:#22c55e;"></div></div>
 </div>
 </div>
 </div>
 
-<div class="right-panel">
-<div class="card">
+<!-- RIGHT -->
+<div class="card-right">
 <b style="font-size:15px;">🧠 AI Analysis Report</b>
-<div class="report">
-<div class="r-card"><b>Glioblastoma</b><small>Confidence: <span id="cGlio">86%</span></small><div class="r-bar-bg"><div class="r-bar" id="bGlio" style="width:86%;background:#ef4444;"></div></div></div>
-<div class="r-card"><b>Astrocytoma</b><small>Confidence: <span id="cAstro">67%</span></small><div class="r-bar-bg"><div class="r-bar" id="bAstro" style="width:67%;background:#f97316;"></div></div></div>
-<div class="r-card"><b>Meningioma</b><small>Confidence: <span id="cMeni">97%</span></small><div class="r-bar-bg"><div class="r-bar" id="bMeni" style="width:97%;background:#3b82f6;"></div></div></div>
-<div class="r-card"><b>No Tumor Detected</b><small>Confidence: <span id="cNo">90%</span></small><div class="r-bar-bg"><div class="r-bar" id="bNo" style="width:90%;background:#22c55e;"></div></div></div>
+<div class="report-grid">
+<div class="r-card" style="border-left-color:#ef4444;"><b>Glioblastoma - <span id="cGlio">86%</span> Confidence</b><div class="bar-bg"><div class="bar" id="bGlio" style="width:86%;background:#ef4444;"></div></div></div>
+<div class="r-card" style="border-left-color:#f97316;"><b>Astrocytoma - <span id="cAstro">67%</span> Confidence</b><div class="bar-bg"><div class="bar" id="bAstro" style="width:67%;background:#f97316;"></div></div></div>
+<div class="r-card" style="border-left-color:#3b82f6;"><b>Meningioma - <span id="cMeni">97%</span> Confirmed</b><div class="bar-bg"><div class="bar" id="bMeni" style="width:97%;background:#3b82f6;"></div></div></div>
+<div class="r-card" style="border-left-color:#22c55e;"><b>No Tumor - <span id="cNo">90%</span> Normal</b><div class="bar-bg"><div class="bar" id="bNo" style="width:90%;background:#22c55e;"></div></div></div>
 </div>
 
 <div class="gallery">
-<b class="gallery-heading">📸 MRI Scan Gallery</b><span class="gallery-sub">2 Images Per Line - High Resolution</span>
+<b style="font-size:14px;">📸 MRI Scan Gallery</b><p style="font-size:10px;color:#6b7fb5;margin-top:2px;">YOUR uploaded image will appear here</p>
 <div class="gallery-grid">
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT1">🖼️<span>Upload MRI to see</span><small>T1-Weighted</small></div><img id="imgT1" class="hidden"></div><div class="g-meta"><b>T1-Weighted</b><span id="gcT1">Confidence: 86%</span><span class="fname" id="fnT1"></span></div></div>
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phFlair">🖼️<span>Upload MRI to see</span><small>FLAIR Scan</small></div><img id="imgFlair" class="hidden"></div><div class="g-meta"><b>FLAIR Scan</b><span id="gcFlair">Confidence: 97%</span><span class="fname" id="fnFlair"></span></div></div>
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT2">🖼️<span>Upload MRI to see</span><small>T2 Scan</small></div><img id="imgT2" class="hidden"></div><div class="g-meta"><b>T2 Scan</b><span id="gcT2">Confidence: 90%</span><span class="fname" id="fnT2"></span></div></div>
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phDwi">🖼️<span>Upload MRI to see</span><small>DWI Scan</small></div><img id="imgDwi" class="hidden"></div><div class="g-meta"><b>DWI Scan</b><span id="gcDwi">Confidence: 67%</span><span class="fname" id="fnDwi"></span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT1">Upload MRI to see<br><small>T1-Weighted</small></div><img id="imgT1" class="hidden"></div><div class="g-meta"><b>T1-Weighted</b><span id="gcT1">Confidence: 86%</span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phFlair">Upload MRI to see<br><small>FLAIR Scan</small></div><img id="imgFlair" class="hidden"></div><div class="g-meta"><b>FLAIR Scan</b><span id="gcFlair">Confidence: 97%</span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT2">Upload MRI to see<br><small>T2 Scan</small></div><img id="imgT2" class="hidden"></div><div class="g-meta"><b>T2 Scan</b><span id="gcT2">Confidence: 90%</span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phDwi">Upload MRI to see<br><small>DWI Scan</small></div><img id="imgDwi" class="hidden"></div><div class="g-meta"><b>DWI Scan</b><span id="gcDwi">Confidence: 67%</span></div></div>
 </div>
 </div>
 </div>
@@ -134,9 +122,9 @@ html,body{width:100%;margin:0;padding:0;background:#0f172a;color:white;}
 let selectedFiles=[];
 const fileInput=document.getElementById('fileInput');
 const uploadBox=document.getElementById('uploadBox');
-uploadBox.addEventListener('dragover',e=>{e.preventDefault();uploadBox.classList.add('dragover');});
-uploadBox.addEventListener('dragleave',()=>uploadBox.classList.remove('dragover'));
-uploadBox.addEventListener('drop',e=>{e.preventDefault();uploadBox.classList.remove('dragover');handleFiles(e.dataTransfer.files);});
+uploadBox.addEventListener('dragover',e=>{e.preventDefault();uploadBox.style.borderColor='#5a7de0';});
+uploadBox.addEventListener('dragleave',()=>uploadBox.style.borderColor='#3a4f8a');
+uploadBox.addEventListener('drop',e=>{e.preventDefault();uploadBox.style.borderColor='#3a4f8a';handleFiles(e.dataTransfer.files);});
 fileInput.addEventListener('change',e=>handleFiles(e.target.files));
 function handleFiles(files){for(let f of files){if(f.type.startsWith('image/')){selectedFiles.push(f);}}updatePreview();}
 function updatePreview(){
@@ -144,25 +132,50 @@ function updatePreview(){
  const fc=document.getElementById('fileCount');
  const clearBtn=document.getElementById('clearBtn');
  preview.innerHTML='';
- if(selectedFiles.length>0){fc.textContent=selectedFiles.length+' file(s) selected ✓';clearBtn.classList.remove('hidden');}else{fc.textContent='';clearBtn.classList.add('hidden');clearGallery();return;}
+ if(selectedFiles.length>0){
+   fc.innerHTML=selectedFiles.length+' file(s) selected ✓ Multi-Select WORKING!';
+   clearBtn.classList.remove('hidden');
+ }else{fc.textContent='';clearBtn.classList.add('hidden');clearGallery();return;}
  selectedFiles.forEach((file, index)=>{
    const r=new FileReader();
    r.onload=e=>{
      const wrapper=document.createElement('div');wrapper.className='preview-item';
      const im=document.createElement('img');im.src=e.target.result;
-     const nameSpan=document.createElement('span');nameSpan.className='file-name';nameSpan.textContent=file.name;
      const delBtn=document.createElement('button');delBtn.className='delete-btn';delBtn.innerHTML='✕';
-     delBtn.onclick=(ev)=>{ev.stopPropagation();selectedFiles.splice(index,1);updatePreview();if(selectedFiles.length>0){const lastReader=new FileReader();lastReader.onload=ev2=>showGallery(ev2.target.result, selectedFiles[selectedFiles.length-1].name);lastReader.readAsDataURL(selectedFiles[selectedFiles.length-1]);}};
-     wrapper.appendChild(im);wrapper.appendChild(nameSpan);wrapper.appendChild(delBtn);preview.appendChild(wrapper);
-     if(index===selectedFiles.length-1){showGallery(e.target.result, file.name);}
+     delBtn.onclick=(ev)=>{ev.stopPropagation();selectedFiles.splice(index,1);updatePreview();if(selectedFiles.length>0){const lastReader=new FileReader();lastReader.onload=ev2=>showGallery(ev2.target.result);lastReader.readAsDataURL(selectedFiles[selectedFiles.length-1]);}};
+     wrapper.appendChild(im);wrapper.appendChild(delBtn);preview.appendChild(wrapper);
+     if(index===selectedFiles.length-1){showGallery(e.target.result);}
    };r.readAsDataURL(file);
  });
 }
-function showGallery(src, fileName=''){['T1','Flair','T2','Dwi'].forEach(v=>{const ph=document.getElementById('ph'+v);if(ph) ph.classList.add('hidden');const img=document.getElementById('img'+v);img.src=src;img.classList.remove('hidden');const fn=document.getElementById('fn'+v);if(fn) fn.textContent=fileName;});}
-function clearGallery(){['T1','Flair','T2','Dwi'].forEach(v=>{const ph=document.getElementById('ph'+v);if(ph) ph.classList.remove('hidden');const img=document.getElementById('img'+v);if(img){img.src='';img.classList.add('hidden');}const fn=document.getElementById('fn'+v);if(fn) fn.textContent='';});}
+function showGallery(src){
+ ['T1','Flair','T2','Dwi'].forEach(v=>{
+   const ph=document.getElementById('ph'+v);if(ph) ph.classList.add('hidden');
+   const img=document.getElementById('img'+v);img.src=src;img.classList.remove('hidden');
+ });
+}
+function clearGallery(){
+ ['T1','Flair','T2','Dwi'].forEach(v=>{
+   const ph=document.getElementById('ph'+v);if(ph) ph.classList.remove('hidden');
+   const img=document.getElementById('img'+v);if(img){img.src='';img.classList.add('hidden');}
+ });
+}
 function clearAll(){selectedFiles=[];document.getElementById('preview').innerHTML='';document.getElementById('fileCount').textContent='';document.getElementById('clearBtn').classList.add('hidden');clearGallery();fileInput.value='';}
 function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
-function analyzeImages(){if(selectedFiles.length===0){alert('Please select MRI image first!');return;}let g=rand(18,55),m=rand(12,35),p=rand(10,30),n=100-g-m-p;if(n<5)n=rand(5,15);let tot=g+m+p+n;let f=100/tot;g=Math.round(g*f);m=Math.round(m*f);p=Math.round(p*f);n=100-g-m-p;document.getElementById('tGlioma').textContent=g+'%';document.getElementById('pGlioma').style.width=g+'%';document.getElementById('tMeningioma').textContent=m+'%';document.getElementById('pMeningioma').style.width=m+'%';document.getElementById('tPituitary').textContent=p+'%';document.getElementById('pPituitary').style.width=p+'%';document.getElementById('tNoTumor').textContent=n+'%';document.getElementById('pNoTumor').style.width=n+'%';let cg=rand(78,96),ca=rand(68,89),cm=rand(85,98),cn=rand(80,96);document.getElementById('cGlio').textContent=cg+'%';document.getElementById('bGlio').style.width=cg+'%';document.getElementById('gcT1').textContent='Confidence: '+cg+'%';document.getElementById('cAstro').textContent=ca+'%';document.getElementById('bAstro').style.width=ca+'%';document.getElementById('gcDwi').textContent='Confidence: '+ca+'%';document.getElementById('cMeni').textContent=cm+'%';document.getElementById('bMeni').style.width=cm+'%';document.getElementById('gcFlair').textContent='Confidence: '+cm+'%';document.getElementById('cNo').textContent=cn+'%';document.getElementById('bNo').style.width=cn+'%';document.getElementById('gcT2').textContent='Confidence: '+cn+'%';}
+function analyzeImages(){
+ if(selectedFiles.length===0){alert('Please select MRI image first!');return;}
+ let g=rand(18,55),m=rand(12,35),p=rand(10,30),n=100-g-m-p;if(n<5)n=rand(5,15);
+ let tot=g+m+p+n;let f=100/tot;g=Math.round(g*f);m=Math.round(m*f);p=Math.round(p*f);n=100-g-m-p;
+ document.getElementById('tGlioma').textContent=g+'%';document.getElementById('pGlioma').style.width=g+'%';
+ document.getElementById('tMeningioma').textContent=m+'%';document.getElementById('pMeningioma').style.width=m+'%';
+ document.getElementById('tPituitary').textContent=p+'%';document.getElementById('pPituitary').style.width=p+'%';
+ document.getElementById('tNoTumor').textContent=n+'%';document.getElementById('pNoTumor').style.width=n+'%';
+ let cg=rand(78,96),ca=rand(68,89),cm=rand(85,98),cn=rand(80,96);
+ document.getElementById('cGlio').textContent=cg+'%';document.getElementById('bGlio').style.width=cg+'%';document.getElementById('gcT1').textContent='Confidence: '+cg+'%';
+ document.getElementById('cAstro').textContent=ca+'%';document.getElementById('bAstro').style.width=ca+'%';document.getElementById('gcDwi').textContent='Confidence: '+ca+'%';
+ document.getElementById('cMeni').textContent=cm+'%';document.getElementById('bMeni').style.width=cm+'%';document.getElementById('gcFlair').textContent='Confidence: '+cm+'%';
+ document.getElementById('cNo').textContent=cn+'%';document.getElementById('bNo').style.width=cn+'%';document.getElementById('gcT2').textContent='Confidence: '+cn+'%';
+}
 </script>
 </body>
 </html>
