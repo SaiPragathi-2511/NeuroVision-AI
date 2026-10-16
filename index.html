@@ -6,108 +6,86 @@
 <title>NeuroVision-AI</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-html,body{width:100%;height:100%;overflow-x:hidden;margin:0;padding:0;}
-body{background:#0f172a;color:white;}
+html,body{width:100%;margin:0;padding:0;background:#0f172a;color:white;zoom:100% !important;}
 
-/* TOTAL SCREEN HEADER */
+/* TOTAL SCREEN HEADER - BIG */
 .top{
-  width:100%;
-  height:78px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 20px;
-  background:#1e293b;
-  border-bottom:2px solid #334155;
-  position:sticky;
-  top:0;
-  z-index:100;
+  width:100% !important;
+  height:90px !important;
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:center !important;
+  padding:0 28px !important;
+  background:#1e293b !important;
+  border-bottom:2px solid #334155 !important;
 }
-.top-left b{font-size:24px;font-weight:800;color:white;}
-.top-left small{color:#60a5fa;font-size:13px;font-weight:600;display:block;margin-top:2px;}
-.top-stats{display:flex;gap:10px;}
-.ts{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:10px 16px;min-width:115px;text-align:center;}
-.ts span{font-size:11px;color:#94a3b8;display:block;}
-.ts b{font-size:16px;font-weight:800;display:block;margin:2px 0;}
-.ts .growth{font-size:10px;color:#22c55e;font-weight:700;}
+.top b{font-size:26px !important;font-weight:800 !important;color:white !important;}
+.top small{color:#60a5fa !important;font-size:13px !important;font-weight:600 !important;display:block !important;margin-top:3px !important;}
+.top-stats{display:flex !important;gap:12px !important;}
+.ts{background:#0f172a !important;border:1px solid #334155 !important;border-radius:10px !important;padding:12px 18px !important;min-width:120px !important;text-align:center !important;}
+.ts span{font-size:12px !important;color:#94a3b8 !important;display:block !important;}
+.ts b{font-size:18px !important;font-weight:800 !important;display:block !important;margin:3px 0 !important;}
 
-/* TOTAL SCREEN WRAP - LEFT UPLOAD, RIGHT OTHERS */
+/* TOTAL SCREEN - NO SIDE MARGINS */
 .wrap{
-  width:100%;
-  display:grid;
-  grid-template-columns:360px 1fr;
-  gap:0;
-  min-height:calc(100vh - 78px);
+  width:100% !important;
+  max-width:100% !important;
+  display:grid !important;
+  grid-template-columns:380px 1fr !important;
+  gap:20px !important;
+  padding:20px !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
 }
-@media(max-width:900px){.wrap{grid-template-columns:1fr;}}
+@media(max-width:1000px){.wrap{grid-template-columns:1fr !important;}}
 
-.left-panel{
-  background:#0f172a;
-  border-right:2px solid #334155;
-  padding:16px;
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  overflow-y:auto;
-}
-.right-panel{
-  background:#0f172a;
-  padding:18px;
-  overflow-y:auto;
-}
+.left-panel{display:flex;flex-direction:column;gap:20px;}
+.right-panel{width:100%;}
 
-.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:16px;}
-.upload{border:2px dashed #475569;border-radius:12px;padding:22px;text-align:center;cursor:pointer;background:#0f172a;margin-top:10px;}
-.upload:hover{border-color:#60a5fa;}
-.btn{width:100%;padding:11px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px;margin-top:10px;}
-.btn-browse{background:#3b82f6;color:white;}
-.btn-ai{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:white;}
-.file-count{color:#22c55e;font-weight:700;font-size:12px;margin-top:10px;text-align:center;min-height:18px;}
+.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:18px;}
+.upload{border:2px dashed #475569;border-radius:12px;padding:24px;text-align:center;cursor:pointer;background:#0f172a;margin-top:10px;}
+.btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px;margin-top:10px;}
+.btn-browse{background:#3b82f6;color:white;} .btn-ai{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:white;}
+.file-count{color:#22c55e;font-weight:700;font-size:12px;margin-top:10px;text-align:center;}
 .preview{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px;}
 .preview-item{position:relative;background:#0f172a;border:1px solid #334155;border-radius:10px;padding:5px;}
 .preview-item img{width:100%;height:70px;object-fit:cover;border-radius:6px;display:block;}
 .file-name{font-size:10px;color:#cbd5e1;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;text-align:center;}
 .delete-btn{position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;border:2px solid #1e293b;border-radius:50%;width:22px;height:22px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:bold;}
 .clear-all-btn{background:#1e293b;border:1px solid #ef4444;color:#ef4444;padding:7px;border-radius:8px;font-size:12px;cursor:pointer;margin-top:10px;width:100%;}
-.t-row{display:flex;justify-content:space-between;font-size:13px;margin-top:14px;align-items:center;}
-.t-row b{font-size:15px;}
+.t-row{display:flex;justify-content:space-between;font-size:14px;margin-top:14px;align-items:center;}
+.t-row b{font-size:16px;}
 .p-bg{height:7px;background:#0f172a;border-radius:10px;overflow:hidden;margin-top:6px;}
-.p-bar{height:100%;border-radius:10px;transition:width 0.8s;}
-
-/* RIGHT SIDE VALUES */
+.p-bar{height:100%;border-radius:10px;}
 .report{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;}
 .r-card{background:white;color:#0f172a;border-radius:12px;padding:18px;min-height:90px;}
-.r-card b{font-size:14px;display:block;}
-.r-card small{font-size:11px;color:#64748b;display:block;margin-top:4px;}
-.r-bar-bg{height:7px;background:#e2e8f0;border-radius:10px;margin-top:10px;overflow:hidden;}
-.r-bar{height:100%;border-radius:10px;}
+.r-card b{font-size:14px;display:block;} .r-card small{font-size:11px;color:#64748b;display:block;margin-top:4px;}
+.r-bar-bg{height:7px;background:#e2e8f0;border-radius:10px;margin-top:10px;overflow:hidden;} .r-bar{height:100%;border-radius:10px;}
 
-/* IMAGES - 2 PER LINE - TOTAL SCREEN */
-.gallery{margin-top:22px;}
+/* 2 IMAGES PER LINE - FIXED */
+.gallery{margin-top:22px;width:100%;}
 .gallery-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-  margin-top:14px;
-  width:100%;
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:20px !important;
+  margin-top:14px !important;
+  width:100% !important;
 }
 .g-item{background:#1e293b;border:1px solid #334155;border-radius:14px;overflow:hidden;width:100%;}
-.g-img-wrap{width:100%;height:320px;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.g-img-wrap{width:100%;height:380px;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;}
 .g-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
 .g-meta{padding:12px;text-align:center;background:#1e293b;border-top:1px solid #334155;}
-.g-meta b{font-size:13px;display:block;color:#e2e8f0;}
-.g-meta span{font-size:12px;color:#22c55e;font-weight:700;display:block;margin-top:3px;}
+.g-meta b{font-size:13px;display:block;color:#e2e8f0;} .g-meta span{font-size:12px;color:#22c55e;font-weight:700;display:block;margin-top:3px;}
 .g-meta .fname{font-size:10px;color:#94a3b8;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#475569;font-size:12px;gap:8px;background:linear-gradient(135deg,#0f172a,#1e293b);}
 .hidden{display:none !important;}
 </style>
 </head>
 <body>
-
 <div class="top">
-<div class="top-left"><b>NeuroVision-AI</b><small>Advanced Brain Tumor Intelligence</small></div>
+<div><b>NeuroVision-AI</b><small>Advanced Brain Tumor Intelligence</small></div>
 <div class="top-stats">
-<div class="ts"><span>Active Patients</span><b>1,204</b><span class="growth">+12% this week</span></div>
+<div class="ts"><span>Active Patients</span><b>1,204</b><span style="font-size:10px;color:#22c55e;">+12% this week</span></div>
 <div class="ts"><span>Accuracy</span><b>96.8%</b><span>Model Performance</span></div>
 <div class="ts"><span>Scans Today</span><b>87</b><span>+8 from yesterday</span></div>
 <div class="ts"><span>Avg Time</span><b>2.1s</b><span>Per Analysis</span></div>
@@ -115,7 +93,6 @@ body{background:#0f172a;color:white;}
 </div>
 
 <div class="wrap">
-<!-- LEFT SIDE - UPLOAD + DOWN VALUES -->
 <div class="left-panel">
 <div class="card">
 <b style="font-size:15px;">📤 Upload MRI Scan</b>
@@ -128,9 +105,8 @@ body{background:#0f172a;color:white;}
 <button class="btn btn-ai" onclick="analyzeImages()">⚡ Analyze with AI</button>
 <div id="fileCount" class="file-count"></div>
 <div id="preview" class="preview"></div>
-<button id="clearBtn" class="clear-all-btn hidden" onclick="clearAll()">🗑️ Clear All Images</button>
+<button id="clearBtn" class="clear-all-btn hidden" onclick="clearAll()">🗑️ Clear All</button>
 </div>
-
 <div class="card">
 <b style="font-size:14px;">📊 Tumor Types Detected</b>
 <div style="margin-top:12px;">
@@ -142,7 +118,6 @@ body{background:#0f172a;color:white;}
 </div>
 </div>
 
-<!-- RIGHT SIDE - VALUES + IMAGES 2 PER LINE -->
 <div class="right-panel">
 <div class="card">
 <b style="font-size:16px;">🧠 AI Analysis Report</b>
@@ -154,7 +129,7 @@ body{background:#0f172a;color:white;}
 </div>
 
 <div class="gallery">
-<b style="font-size:15px;">📸 MRI Scan Gallery - 2 Images Per Line</b>
+<b style="font-size:15px;">📸 MRI Scan Gallery (2x2)</b>
 <div class="gallery-grid">
 <div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT1">🖼️<span>Upload MRI to see</span><small>T1-Weighted</small></div><img id="imgT1" class="hidden"></div><div class="g-meta"><b>T1-Weighted</b><span id="gcT1">Confidence: 86%</span><span class="fname" id="fnT1"></span></div></div>
 <div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phFlair">🖼️<span>Upload MRI to see</span><small>FLAIR Scan</small></div><img id="imgFlair" class="hidden"></div><div class="g-meta"><b>FLAIR Scan</b><span id="gcFlair">Confidence: 97%</span><span class="fname" id="fnFlair"></span></div></div>
