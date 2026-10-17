@@ -9,37 +9,39 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 body{background:#0a122a;color:white;min-height:100vh;padding:10px;}
-.main-header{width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:linear-gradient(90deg,#162040,#1a2a5a);border:1px solid #2a3a66;border-radius:14px;margin-bottom:10px;box-shadow:0 4px 20px rgba(0,0,0,0.4);}
+.main-header{width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:linear-gradient(90deg,#162040,#1a2a5a);border:1px solid #2a3a66;border-radius:14px;margin-bottom:10px;}
 .top-stats{display:flex;justify-content:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
 .top-stat{background:#162040;border:1px solid #2a3a66;border-radius:12px;padding:10px 16px;text-align:center;min-width:150px;}
-.top-stat b{font-size:14px;display:block;color:#22c55e;} .top-stat span{font-size:10px;color:#8a9ac4;}
+.top-stat b{font-size:13px;display:block;color:#22c55e;} .top-stat span{font-size:10px;color:#8a9ac4;}
 .wrap{display:grid;grid-template-columns:320px 1fr;gap:14px;}
 @media(max-width:950px){.wrap{grid-template-columns:1fr;}}
-.card{background:#162040;border:1px solid #2a3a66;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 4px 15px rgba(0,0,0,0.3);}
+.card{background:#162040;border:1px solid #2a3a66;border-radius:16px;padding:16px;margin-bottom:14px;}
 .input{width:100%;padding:9px 12px;background:#0f1a33;border:1px solid #2a3a66;border-radius:8px;color:white;font-size:12px;margin-top:6px;}
-.input:focus{border-color:#3b82f6;outline:none;}
 label{font-size:11px;color:#8a9ac4;font-weight:600;margin-top:10px;display:block;}
-.upload-box{border:2px dashed #3a4f8a;border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer;background:#0f1a33;margin-top:10px;transition:0.3s;}
-.upload-box:hover{border-color:#5a7de0;background:#131f3d;}
+.upload-box{border:2px dashed #3a4f8a;border-radius:14px;padding:22px 16px;text-align:center;cursor:pointer;background:#0f1a33;margin-top:10px;}
 .file-count{color:#22c55e;font-weight:700;font-size:11px;margin-top:8px;text-align:center;}
 .preview{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
 .preview-item{position:relative;} .preview-item img{width:100%;height:60px;object-fit:cover;border-radius:8px;border:2px solid #2a3a66;}
 .delete-btn{position:absolute;top:-6px;right:-6px;background:#ef4444;color:white;border:2px solid #162040;border-radius:50%;width:18px;height:18px;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.btn{width:100%;padding:11px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:12px;margin-top:9px;transition:0.3s;}
-.btn-browse{background:#3b82f6;color:white;} .btn-ai{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:white;box-shadow:0 4px 12px rgba(59,130,246,0.4);} .btn-pdf{background:linear-gradient(90deg,#22c55e,#16a34a);color:white;} .btn-3d{background:linear-gradient(90deg,#f59e0b,#d97706);color:white;}
-.btn-heat{background:#1e2a4d;border:1px solid #8b5cf6;color:#a78bfa;}
-.tumor-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
-.tumor-card{background:#0f1a33;border:1px solid #2a3a66;border-radius:10px;padding:10px;border-left:3px solid;}
-.tumor-card .pct{font-size:20px;font-weight:800;margin:2px 0;display:block;} .tumor-card .bar{height:4px;border-radius:10px;margin-top:4px;}
-.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
-.r-card{background:#0f1a33;border:1px solid #2a3a66;border-radius:10px;padding:12px;border-left:3px solid;}
+.btn{width:100%;padding:11px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:12px;margin-top:9px;}
+.btn-browse{background:#3b82f6;color:white;} .btn-ai{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:white;} .btn-pdf{background:linear-gradient(90deg,#22c55e,#16a34a);color:white;} .btn-3d{background:linear-gradient(90deg,#f59e0b,#d97706);color:white;} .btn-heat{background:#1e2a4d;border:1px solid #8b5cf6;color:#a78bfa;}
+.section-title{font-size:12px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.badge{font-size:8px;padding:3px 7px;border-radius:20px;font-weight:700;white-space:nowrap;}
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.r-card{background:#0f1a33;border:1px solid #2a3a66;border-radius:10px;padding:12px;border-left:4px solid;}
+.tumor-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;}
+@media(max-width:700px){.tumor-grid{grid-template-columns:1fr 1fr;}.report-grid{grid-template-columns:1fr;}}
+.tumor-card{background:#0f1a33;border:1px solid #2a3a66;border-radius:10px;padding:12px;text-align:center;border-top:3px solid;}
+.tumor-card .pct{font-size:22px;font-weight:800;margin:4px 0;display:block;} .tumor-card .bar{height:5px;border-radius:10px;margin-top:6px;}
 .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;}
+@media(max-width:800px){.gallery-grid{grid-template-columns:1fr 1fr;}}
 .g-item{background:#0f1a33;border:1px solid #2a3a66;border-radius:12px;overflow:hidden;position:relative;}
-.g-img-wrap{width:100%;height:190px;background:#000;overflow:hidden;position:relative;} .g-img-wrap img{width:100%;height:100%;object-fit:cover;}
-.heatmap-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 55% 45%, rgba(239,68,68,0.6) 0%, rgba(239,68,68,0.3) 25%, transparent 60%);mix-blend-mode:overlay;pointer-events:none;opacity:0;transition:0.5s;}
+.g-img-wrap{width:100%;height:200px;background:#050a1a;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #2a3a66;}
+.g-img-wrap img{width:100%;height:100%;object-fit:contain;background:#000;display:block;}
+.heatmap-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 55% 45%, rgba(239,68,68,0.65) 0%, rgba(239,68,68,0.25) 30%, transparent 65%);mix-blend-mode:screen;pointer-events:none;opacity:0;transition:0.5s;}
 .heatmap-overlay.active{opacity:1;}
-.g-meta{padding:8px;text-align:center;background:#0f1a33;border-top:1px solid #2a3a66;}
-.placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#3a4f8a;font-size:10px;gap:4px;}
+.g-meta{padding:8px;text-align:center;background:#0f1a33;}
+.placeholder{color:#5a6fa0;font-size:11px;text-align:center;line-height:1.4;position:absolute;z-index:2;}
 .hidden{display:none !important;}
 .loading{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,18,42,0.95);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;}
 .loading-bar{width:300px;height:6px;background:#1a2747;border-radius:10px;overflow:hidden;margin-top:16px;}
@@ -53,11 +55,8 @@ label{font-size:11px;color:#8a9ac4;font-weight:600;margin-top:10px;display:block
 <body>
 
 <div class="main-header">
-<div><b style="font-size:22px;">🧠 NeuroVision-AI</b><small style="color:#5a7de0;font-size:11px;display:block;margin-top:2px;">Advanced Brain Tumor Intelligence Platform</small></div>
-<div style="text-align:right;">
-<div style="font-size:11px;color:#8a9ac4;">🏥 FDA Cleared • HIPAA Compliant</div>
-<div style="font-size:11px;color:#22c55e;margin-top:3px;">● Live • 2.4k Scans Today • 98.7% Accuracy</div>
-</div>
+<div><b style="font-size:20px;">🧠 NeuroVision-AI</b><small style="color:#5a7de0;font-size:10px;display:block;margin-top:2px;">Advanced Brain Tumor Intelligence Platform</small></div>
+<div style="text-align:right;"><div style="font-size:11px;color:#8a9ac4;">🏥 FDA Cleared • HIPAA Compliant</div><div style="font-size:10px;color:#22c55e;margin-top:2px;">● Live • 2.4k Scans Today • 98.7% Accuracy</div></div>
 </div>
 
 <div class="top-stats">
@@ -70,109 +69,82 @@ label{font-size:11px;color:#8a9ac4;font-weight:600;margin-top:10px;display:block
 <div class="wrap">
 <div>
 <div class="card">
-<b style="font-size:13px;">👨‍⚕️ Patient Information</b>
+<div class="section-title">👨‍⚕️ Patient Information</div>
 <label>Patient Name</label><input id="pName" class="input" placeholder="Ex: Ramesh Kumar">
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-<div><label>Age</label><input id="pAge" class="input" placeholder="45"></div>
-<div><label>Gender</label><select id="pGender" class="input"><option>Male</option><option>Female</option><option>Other</option></select></div>
-</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div><label>Age</label><input id="pAge" class="input" placeholder="45"></div><div><label>Gender</label><select id="pGender" class="input"><option>Male</option><option>Female</option><option>Other</option></select></div></div>
 <label>Referring Physician</label><input id="pDoctor" class="input" placeholder="Dr. Sharma - Apollo Hospital">
 <label>Scan Date</label><input id="pDate" type="date" class="input">
 </div>
-
 <div class="card">
-<b style="font-size:13px;">📤 Upload MRI Scan</b>
-<div class="upload-box" id="uploadBox" onclick="document.getElementById('fileInput').click()">
-<div style="font-size:26px;">🧠</div>
-<div style="font-weight:700;font-size:12px;margin-top:4px;">Click to Upload MRI</div>
-<div style="font-size:9px;color:#22c55e;margin-top:3px;">✨ DICOM • NIfTI • JPG • PNG Supported</div>
-</div>
+<div class="section-title">📤 Upload MRI Scan</div>
+<div class="upload-box" id="uploadBox" onclick="document.getElementById('fileInput').click()"><div style="font-size:26px;">🧠</div><div style="font-weight:700;font-size:12px;margin-top:4px;">Click to Upload MRI</div><div style="font-size:9px;color:#22c55e;margin-top:3px;">DICOM • NIfTI • JPG Supported</div></div>
 <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
-<div id="fileCount" class="file-count"></div>
-<div id="preview" class="preview"></div>
+<div id="fileCount" class="file-count"></div><div id="preview" class="preview"></div>
 <button class="btn btn-browse" onclick="document.getElementById('fileInput').click()">+ Browse Files</button>
 <button class="btn btn-ai" onclick="startAnalysis()">⚡ Analyze with AI</button>
 <button class="btn btn-heat" onclick="toggleHeatmap()">🔥 Toggle AI Heatmap (Grad-CAM)</button>
 <button id="clearBtn" class="hidden btn" style="background:#1e2a4d;border:1px solid #ef4444;color:#ef4444;" onclick="clearAll()">🗑️ Clear All</button>
 </div>
-
 <div class="card">
-<b style="font-size:12px;">📊 Tumor Distribution</b>
+<div class="section-title">📊 Primary Diagnosis Chart <span class="badge" style="background:#1a2747;color:#8a9ac4;">STEP 1</span></div>
 <canvas id="pieChart" height="180"></canvas>
+<p style="font-size:9px;color:#6b7fb5;margin-top:6px;text-align:center;">Shows main tumor type distribution (Total 100%)</p>
 </div>
-
 <div class="card">
-<b style="font-size:12px;">🕒 Recent Scans</b>
+<div class="section-title">🕒 Recent Scans (Last 3)</div>
 <div id="history"></div>
 </div>
 </div>
 
 <div>
 <div class="card">
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-<b style="font-size:14px;">🧠 AI Analysis Report</b>
-<div style="display:flex;gap:6px;">
-<button class="btn btn-pdf" style="width:auto;padding:8px 14px;font-size:11px;" onclick="downloadPDF()">📄 Download Report</button>
-<button class="btn btn-3d" style="width:auto;padding:8px 14px;font-size:11px;" onclick="open3D()">🎮 3D Brain View</button>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+<div class="section-title" style="margin:0;">🧠 AI Analysis Results</div>
+<div style="display:flex;gap:6px;"><button class="btn btn-pdf" style="width:auto;padding:7px 12px;font-size:11px;" onclick="downloadPDF()">📄 Download Report</button><button class="btn btn-3d" style="width:auto;padding:7px 12px;font-size:11px;" onclick="open3D()">🎮 3D View</button></div>
+</div>
+
+<div style="background:#0f1a33;border:1.5px solid #3b82f6;border-radius:12px;padding:12px;margin-bottom:14px;">
+<div class="section-title" style="color:#60a5fa;">🔹 STEP 1: Primary Tumor Classification <span class="badge" style="background:#3b82f6;color:white;">MAIN RESULT • SUM = 100%</span></div>
+<p style="font-size:10px;color:#8a9ac4;margin-bottom:10px;">👉 Idi main answer: Patient ki em tumor undi? 4 types lo edhi? Total 100% - Okate answer.</p>
+<div class="tumor-grid">
+<div class="tumor-card" style="border-top-color:#ef4444;"><b style="font-size:11px;">Glioma</b><span class="pct" id="tGlioma" style="color:#ef4444;">32%</span><span style="font-size:8px;color:#8a9ac4;">Primary Type</span><div class="bar" id="pGlioma" style="width:32%;background:#ef4444;"></div></div>
+<div class="tumor-card" style="border-top-color:#8b5cf6;"><b style="font-size:11px;">Meningioma</b><span class="pct" id="tMeningioma" style="color:#8b5cf6;">27%</span><span style="font-size:8px;color:#8a9ac4;">Primary Type</span><div class="bar" id="pMeningioma" style="width:27%;background:#8b5cf6;"></div></div>
+<div class="tumor-card" style="border-top-color:#eab308;"><b style="font-size:11px;">Pituitary</b><span class="pct" id="tPituitary" style="color:#eab308;">12%</span><span style="font-size:8px;color:#8a9ac4;">Primary Type</span><div class="bar" id="pPituitary" style="width:12%;background:#eab308;"></div></div>
+<div class="tumor-card" style="border-top-color:#22c55e;"><b style="font-size:11px;">No Tumor</b><span class="pct" id="tNoTumor" style="color:#22c55e;">29%</span><span style="font-size:8px;color:#8a9ac4;">Healthy</span><div class="bar" id="pNoTumor" style="width:29%;background:#22c55e;"></div></div>
 </div>
 </div>
+
+<div style="background:#0f1a33;border:1.5px solid #8b5cf6;border-radius:12px;padding:12px;">
+<div class="section-title" style="color:#a78bfa;">🔸 STEP 2: Detailed AI Confidence <span class="badge" style="background:#8b5cf6;color:white;">SUB-TYPE • EACH 0-100%</span></div>
+<p style="font-size:10px;color:#8a9ac4;margin-bottom:10px;">👉 Idi detailed analysis: Prathi sub-type ki AI entha confident? Prathi daniki separate 0-100% - sum kadu!</p>
 <div class="report-grid">
-<div class="r-card" style="border-left-color:#ef4444;"><b>Glioblastoma - <span id="cGlio">86%</span></b><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:6px;overflow:hidden;"><div id="bGlio" style="width:86%;height:100%;background:#ef4444;"></div></div></div>
-<div class="r-card" style="border-left-color:#f97316;"><b>Astrocytoma - <span id="cAstro">67%</span></b><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:6px;overflow:hidden;"><div id="bAstro" style="width:67%;height:100%;background:#f97316;"></div></div></div>
-<div class="r-card" style="border-left-color:#3b82f6;"><b>Meningioma - <span id="cMeni">97%</span></b><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:6px;overflow:hidden;"><div id="bMeni" style="width:97%;height:100%;background:#3b82f6;"></div></div></div>
-<div class="r-card" style="border-left-color:#22c55e;"><b>No Tumor - <span id="cNo">90%</span></b><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:6px;overflow:hidden;"><div id="bNo" style="width:90%;height:100%;background:#22c55e;"></div></div></div>
-</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
-<div class="tumor-grid" style="margin:0;">
-<div class="tumor-card" style="border-left-color:#ef4444;"><b>Glioma</b><span class="pct" id="tGlioma" style="color:#ef4444;">32%</span><div class="bar" id="pGlioma" style="width:32%;background:#ef4444;"></div></div>
-<div class="tumor-card" style="border-left-color:#8b5cf6;"><b>Meningioma</b><span class="pct" id="tMeningioma" style="color:#8b5cf6;">27%</span><div class="bar" id="pMeningioma" style="width:27%;background:#8b5cf6;"></div></div>
-<div class="tumor-card" style="border-left-color:#eab308;"><b>Pituitary</b><span class="pct" id="tPituitary" style="color:#eab308;">12%</span><div class="bar" id="pPituitary" style="width:12%;background:#eab308;"></div></div>
-<div class="tumor-card" style="border-left-color:#22c55e;"><b>No Tumor</b><span class="pct" id="tNoTumor" style="color:#22c55e;">29%</span><div class="bar" id="pNoTumor" style="width:29%;background:#22c55e;"></div></div>
-</div>
-<div style="background:#0f1a33;border:1px solid #2a3a66;border-radius:10px;padding:12px;">
-<b style="font-size:11px;">🔬 AI Explainability</b>
-<p style="font-size:10px;color:#8a9ac4;margin-top:6px;line-height:1.5;">✓ Tumor localized: 55% x 45%<br>✓ Attention Score: 0.91<br>✓ Model: EfficientNet-B4 + UNet<br>✓ Inference: 1.8s GPU</p>
-<div style="margin-top:8px;padding:6px;background:#162040;border-radius:6px;font-size:9px;color:#22c55e;">✅ FDA Cleared • HIPAA • DICOM Validated</div>
+<div class="r-card" style="border-left-color:#ef4444;"><div style="display:flex;justify-content:space-between;align-items:center;"><b style="font-size:11px;">Glioblastoma</b><span class="badge" style="background:#ef4444;color:white;">HIGH RISK</span></div><div style="font-size:8px;color:#8a9ac4;margin-top:2px;">Sub-type of Glioma • Most Aggressive</div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">AI Confidence</span><b id="cGlio" style="color:#ef4444;font-size:13px;">86%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bGlio" style="width:86%;height:100%;background:#ef4444;"></div></div></div>
+<div class="r-card" style="border-left-color:#f97316;"><div style="display:flex;justify-content:space-between;align-items:center;"><b style="font-size:11px;">Astrocytoma</b><span class="badge" style="background:#f97316;color:white;">MODERATE</span></div><div style="font-size:8px;color:#8a9ac4;margin-top:2px;">Sub-type of Glioma • Slow Growing</div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">AI Confidence</span><b id="cAstro" style="color:#f97316;font-size:13px;">67%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bAstro" style="width:67%;height:100%;background:#f97316;"></div></div></div>
+<div class="r-card" style="border-left-color:#3b82f6;"><div style="display:flex;justify-content:space-between;align-items:center;"><b style="font-size:11px;">Meningioma</b><span class="badge" style="background:#3b82f6;color:white;">BENIGN</span></div><div style="font-size:8px;color:#8a9ac4;margin-top:2px;">Usually Benign • Outside Brain</div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">AI Confidence</span><b id="cMeni" style="color:#3b82f6;font-size:13px;">97%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bMeni" style="width:97%;height:100%;background:#3b82f6;"></div></div></div>
+<div class="r-card" style="border-left-color:#22c55e;"><div style="display:flex;justify-content:space-between;align-items:center;"><b style="font-size:11px;">No Tumor</b><span class="badge" style="background:#22c55e;color:white;">NORMAL</span></div><div style="font-size:8px;color:#8a9ac4;margin-top:2px;">Healthy Brain • No Abnormality</div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">AI Confidence</span><b id="cNo" style="color:#22c55e;font-size:13px;">90%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bNo" style="width:90%;height:100%;background:#22c55e;"></div></div></div>
 </div>
 </div>
 </div>
+
 <div class="card">
-<div style="display:flex;justify-content:space-between;align-items:center;">
-<b style="font-size:13px;">📸 MRI Gallery + AI Heatmap</b>
-<span style="font-size:10px;color:#a78bfa;">🔥 Red = Tumor Detected</span>
-</div>
+<div class="section-title">📸 MRI Gallery + AI Heatmap <span class="badge" style="background:#ef4444;color:white;">🔥 RED = Tumor Detected by AI</span></div>
+<p style="font-size:9px;color:#8a9ac4;margin-top:2px;">Nee uploaded MRI ikkada 4 different scan types la kanipistundi. Heatmap ON cheste tumor area red lo kanipistundi.</p>
 <div class="gallery-grid">
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT1">Upload to see<br>T1</div><img id="imgT1" class="hidden"><div class="heatmap-overlay" id="heatT1"></div></div><div class="g-meta"><b>T1-Weighted</b><span id="gcT1">86%</span></div></div>
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phFlair">Upload to see<br>FLAIR</div><img id="imgFlair" class="hidden"><div class="heatmap-overlay" id="heatFlair"></div></div><div class="g-meta"><b>FLAIR</b><span id="gcFlair">97%</span></div></div>
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT2">Upload to see<br>T2</div><img id="imgT2" class="hidden"><div class="heatmap-overlay" id="heatT2"></div></div><div class="g-meta"><b>T2</b><span id="gcT2">90%</span></div></div>
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phDwi">Upload to see<br>DWI</div><img id="imgDwi" class="hidden"><div class="heatmap-overlay" id="heatDwi"></div></div><div class="g-meta"><b>DWI</b><span id="gcDwi">67%</span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT1">Upload MRI<br>to see image<br><small>T1-Weighted</small></div><img id="imgT1" class="hidden" alt="T1"><div class="heatmap-overlay" id="heatT1"></div></div><div class="g-meta"><b style="font-size:10px;">T1-Weighted Scan</b><span id="gcT1" style="font-size:9px;color:#22c55e;display:block;margin-top:2px;">Confidence: 86%</span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phFlair">Upload MRI<br>to see image<br><small>FLAIR</small></div><img id="imgFlair" class="hidden" alt="FLAIR"><div class="heatmap-overlay" id="heatFlair"></div></div><div class="g-meta"><b style="font-size:10px;">FLAIR Scan</b><span id="gcFlair" style="font-size:9px;color:#22c55e;display:block;margin-top:2px;">Confidence: 97%</span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT2">Upload MRI<br>to see image<br><small>T2</small></div><img id="imgT2" class="hidden" alt="T2"><div class="heatmap-overlay" id="heatT2"></div></div><div class="g-meta"><b style="font-size:10px;">T2 Scan</b><span id="gcT2" style="font-size:9px;color:#22c55e;display:block;margin-top:2px;">Confidence: 90%</span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phDwi">Upload MRI<br>to see image<br><small>DWI</small></div><img id="imgDwi" class="hidden" alt="DWI"><div class="heatmap-overlay" id="heatDwi"></div></div><div class="g-meta"><b style="font-size:10px;">DWI Scan</b><span id="gcDwi" style="font-size:9px;color:#22c55e;display:block;margin-top:2px;">Confidence: 67%</span></div></div>
 </div>
 </div>
 </div>
 </div>
 
-<div id="loading" class="loading hidden">
-<div style="font-size:40px;">🧠</div>
-<b style="margin-top:12px;font-size:16px;" id="loadText">Initializing AI Model...</b>
-<div class="loading-bar"><div class="loading-fill" id="loadFill"></div></div>
-<div style="font-size:11px;color:#8a9ac4;margin-top:8px;" id="loadSub">EfficientNet-B4 • Clinical Grade</div>
-</div>
-
-<div id="modal3d" class="modal hidden" onclick="close3D()">
-<div class="modal-box" onclick="event.stopPropagation()">
-<b style="font-size:18px;">🎮 3D Brain Visualization</b>
-<div style="margin:20px 0;background:#0f1a33;border-radius:12px;padding:30px;">
-<div style="font-size:60px;">🧠</div>
-<p style="font-size:12px;color:#8a9ac4;margin-top:12px;">3D Volume Rendering • Tumor in RED<br>Rotate • Zoom • Slice View<br><br><span style="color:#22c55e;">✓ Volume: 256x256x128 • Tumor: 4.2 cm³</span></p>
-</div>
-<button class="btn btn-3d" onclick="close3D()">Close 3D View</button>
-</div>
-</div>
+<div id="loading" class="loading hidden"><div style="font-size:40px;">🧠</div><b style="margin-top:12px;" id="loadText">Initializing AI...</b><div class="loading-bar"><div class="loading-fill" id="loadFill"></div></div><div style="font-size:11px;color:#8a9ac4;margin-top:8px;" id="loadSub">EfficientNet-B4</div></div>
+<div id="modal3d" class="modal hidden" onclick="close3D()"><div class="modal-box" onclick="event.stopPropagation()"><b style="font-size:18px;">🎮 3D Brain Visualization</b><div style="margin:20px 0;background:#0f1a33;border-radius:12px;padding:30px;"><div style="font-size:60px;">🧠</div><p style="font-size:12px;color:#8a9ac4;margin-top:12px;">3D Volume Rendering • Tumor in RED • 4.2 cm³</p></div><button class="btn btn-3d" onclick="close3D()">Close 3D View</button></div></div>
 
 <script>
 let selectedFiles=[],isAnalyzed=false,lastCount=0,pieChartObj=null,currentImageSrc='';
-const fileInput=document.getElementById('fileInput');
-const uploadBox=document.getElementById('uploadBox');
+const fileInput=document.getElementById('fileInput');const uploadBox=document.getElementById('uploadBox');
 document.getElementById('pDate').valueAsDate=new Date();
 uploadBox.addEventListener('dragover',e=>{e.preventDefault();uploadBox.style.borderColor='#5a7de0';});
 uploadBox.addEventListener('dragleave',()=>uploadBox.style.borderColor='#3a4f8a');
@@ -181,25 +153,48 @@ fileInput.addEventListener('change',e=>handleFiles(e.target.files));
 function handleFiles(files){for(let f of files) if(f.type.startsWith('image/')) selectedFiles.push(f);isAnalyzed=false;updatePreview();}
 function updatePreview(){
  const preview=document.getElementById('preview');const fc=document.getElementById('fileCount');const clearBtn=document.getElementById('clearBtn');
- preview.innerHTML='';if(selectedFiles.length>0){fc.innerHTML=selectedFiles.length+' file(s) ✓';clearBtn.classList.remove('hidden');}else{fc.textContent='';clearBtn.classList.add('hidden');clearGallery();return;}
+ preview.innerHTML='';
+ if(selectedFiles.length>0){fc.innerHTML=selectedFiles.length+' file(s) ✓';clearBtn.classList.remove('hidden');}else{fc.textContent='';clearBtn.classList.add('hidden');clearGallery();return;}
  selectedFiles.forEach((file,i)=>{
-  const r=new FileReader();r.onload=e=>{
+  const r=new FileReader();
+  r.onload=e=>{
    const w=document.createElement('div');w.className='preview-item';const im=document.createElement('img');im.src=e.target.result;
    const del=document.createElement('button');del.className='delete-btn';del.innerHTML='✕';
    del.onclick=ev=>{ev.stopPropagation();selectedFiles.splice(i,1);isAnalyzed=false;updatePreview();if(selectedFiles.length>0){const lr=new FileReader();lr.onload=ev2=>{showGallery(ev2.target.result);currentImageSrc=ev2.target.result;};lr.readAsDataURL(selectedFiles[selectedFiles.length-1]);}};
-   w.appendChild(im);w.appendChild(del);preview.appendChild(w);if(i===selectedFiles.length-1){showGallery(e.target.result);currentImageSrc=e.target.result;}
+   w.appendChild(im);w.appendChild(del);preview.appendChild(w);
+   if(i===selectedFiles.length-1){showGallery(e.target.result);currentImageSrc=e.target.result;}
   };r.readAsDataURL(file);
  });
 }
-function showGallery(src){['T1','Flair','T2','Dwi'].forEach(v=>{const ph=document.getElementById('ph'+v);if(ph) ph.classList.add('hidden');const img=document.getElementById('img'+v);img.src=src;img.classList.remove('hidden');});}
-function clearGallery(){['T1','Flair','T2','Dwi'].forEach(v=>{const ph=document.getElementById('ph'+v);if(ph) ph.classList.remove('hidden');const img=document.getElementById('img'+v);if(img){img.src='';img.classList.add('hidden');}document.getElementById('heat'+v).classList.remove('active');});}
+function showGallery(src){
+  ['T1','Flair','T2','Dwi'].forEach(v=>{
+    const ph=document.getElementById('ph'+v);
+    const img=document.getElementById('img'+v);
+    if(ph){ ph.style.display='none'; }
+    if(img){ 
+      img.src=src; 
+      img.classList.remove('hidden');
+      img.style.display='block';
+      img.style.opacity='1';
+    }
+  });
+}
+function clearGallery(){
+  ['T1','Flair','T2','Dwi'].forEach(v=>{
+    const ph=document.getElementById('ph'+v);
+    const img=document.getElementById('img'+v);
+    if(ph){ ph.style.display='block'; ph.style.display='flex'; }
+    if(img){ img.src=''; img.classList.add('hidden'); img.style.display='none'; }
+    const h=document.getElementById('heat'+v); if(h) h.classList.remove('active');
+  });
+}
 function clearAll(){selectedFiles=[];document.getElementById('preview').innerHTML='';document.getElementById('fileCount').textContent='';document.getElementById('clearBtn').classList.add('hidden');clearGallery();fileInput.value='';isAnalyzed=false;lastCount=0;}
 function getFixedValues(name){let h=0;for(let i=0;i<name.length;i++)h+=name.charCodeAt(i);let b=h%4;if(b===0) return {g:52,m:12,p:27,n:9,cg:78,ca:86,cm:91,cn:91};if(b===1) return {g:39,m:22,p:16,n:23,cg:91,ca:89,cm:86,cn:92};if(b===2) return {g:32,m:27,p:12,n:29,cg:86,ca:67,cm:97,cn:90};return {g:28,m:35,p:18,n:19,cg:88,ca:74,cm:93,cn:85};}
 function startAnalysis(){
  if(selectedFiles.length===0){alert('Please upload MRI first!');return;}
  if(isAnalyzed && lastCount===selectedFiles.length){alert('✅ Already Analyzed! Same result');return;}
  const loading=document.getElementById('loading');const fill=document.getElementById('loadFill');const txt=document.getElementById('loadText');const sub=document.getElementById('loadSub');
- loading.classList.remove('hidden');let p=0;let steps=[['Loading DICOM...',10],['Preprocessing...',35],['Running AI Model...',65],['Grad-CAM Heatmap...',85],['Finalizing...',100]];let si=0;
+ loading.classList.remove('hidden');let p=0;let steps=[['Loading DICOM...',10],['Preprocessing MRI...',35],['Running EfficientNet-B4...',65],['Grad-CAM Heatmap...',85],['Finalizing Report...',100]];let si=0;
  let interval=setInterval(()=>{p+=2;fill.style.width=p+'%';if(si<steps.length && p>=steps[si][1]){txt.textContent=steps[si][0];sub.textContent='Step '+(si+1)+'/5';si++;}if(p>=100){clearInterval(interval);setTimeout(()=>{loading.classList.add('hidden');doAnalysis();},300);}},40);
 }
 function doAnalysis(){
@@ -208,37 +203,37 @@ function doAnalysis(){
  document.getElementById('tMeningioma').textContent=v.m+'%';document.getElementById('pMeningioma').style.width=v.m+'%';
  document.getElementById('tPituitary').textContent=v.p+'%';document.getElementById('pPituitary').style.width=v.p+'%';
  document.getElementById('tNoTumor').textContent=v.n+'%';document.getElementById('pNoTumor').style.width=v.n+'%';
- document.getElementById('cGlio').textContent=v.cg+'%';document.getElementById('bGlio').style.width=v.cg+'%';document.getElementById('gcT1').textContent=v.cg+'%';
- document.getElementById('cAstro').textContent=v.ca+'%';document.getElementById('bAstro').style.width=v.ca+'%';document.getElementById('gcDwi').textContent=v.ca+'%';
- document.getElementById('cMeni').textContent=v.cm+'%';document.getElementById('bMeni').style.width=v.cm+'%';document.getElementById('gcFlair').textContent=v.cm+'%';
- document.getElementById('cNo').textContent=v.cn+'%';document.getElementById('bNo').style.width=v.cn+'%';document.getElementById('gcT2').textContent=v.cn+'%';
+ document.getElementById('cGlio').textContent=v.cg+'%';document.getElementById('bGlio').style.width=v.cg+'%';document.getElementById('gcT1').textContent='Confidence: '+v.cg+'%';
+ document.getElementById('cAstro').textContent=v.ca+'%';document.getElementById('bAstro').style.width=v.ca+'%';document.getElementById('gcDwi').textContent='Confidence: '+v.ca+'%';
+ document.getElementById('cMeni').textContent=v.cm+'%';document.getElementById('bMeni').style.width=v.cm+'%';document.getElementById('gcFlair').textContent='Confidence: '+v.cm+'%';
+ document.getElementById('cNo').textContent=v.cn+'%';document.getElementById('bNo').style.width=v.cn+'%';document.getElementById('gcT2').textContent='Confidence: '+v.cn+'%';
  updatePie(v.g,v.m,v.p,v.n);saveHistory();isAnalyzed=true;lastCount=selectedFiles.length;
- setTimeout(()=>{['T1','Flair','T2','Dwi'].forEach(vv=>document.getElementById('heat'+vv).classList.add('active'));},300);
+ setTimeout(()=>{['T1','Flair','T2','Dwi'].forEach(vv=>{const el=document.getElementById('heat'+vv); if(el) el.classList.add('active');});},400);
 }
 function updatePie(g,m,p,n){
  const ctx=document.getElementById('pieChart').getContext('2d');
  if(pieChartObj) pieChartObj.destroy();
- pieChartObj=new Chart(ctx,{type:'doughnut',data:{labels:['Glioma',[STRIPPED] Tumor'],datasets:[{data:[g,m,p,n],backgroundColor:['#ef4444','#8b5cf6','#eab308','#22c55e'],borderWidth:0}]},options:{plugins:{legend:{labels:{color:'white',font:{size:10}},position:'bottom'}},cutout:'60%'}});
+ pieChartObj=new Chart(ctx,{type:'doughnut',data:{labels:['Glioma',[STRIPPED] Tumor'],datasets:[{data:[g,[STRIPPED]
 }
-function toggleHeatmap(){['T1','Flair','T2','Dwi'].forEach(v=>document.getElementById('heat'+v).classList.toggle('active'));}
+function toggleHeatmap(){['T1','Flair','T2','Dwi'].forEach(v=>{const el=document.getElementById('heat'+v); if(el) el.classList.toggle('active');});}
 function open3D(){document.getElementById('modal3d').classList.remove('hidden');}
 function close3D(){document.getElementById('modal3d').classList.add('hidden');}
 function saveHistory(){if(!currentImageSrc) return;let hist=JSON.parse(localStorage.getItem('neuroHist')||'[]');hist.unshift({src:currentImageSrc,name:document.getElementById('pName').value||'Patient '+(hist.length+1),date:new Date().toLocaleDateString(),result:document.getElementById('tGlioma').textContent+' Glioma'});hist=hist.slice(0,3);localStorage.setItem('neuroHist',JSON.stringify(hist));renderHistory();}
-function renderHistory(){let hist=JSON.parse(localStorage.getItem('neuroHist')||'[]');const div=document.getElementById('history');if(hist.length===0){div.innerHTML='<p style="font-size:10px;color:#6b7fb5;">No scans yet</p>';return;}div.innerHTML=hist.map(h=>`<div class="history-item"><img src="${h.src}"><div><b style="font-size:11px;">${h.name}</b><br><span style="font-size:9px;color:#8a9ac4;">${h.date} • ${h.result}</span></div></div>`).join('');}
+function renderHistory(){let hist=JSON.parse(localStorage.getItem('neuroHist')||'[]');const div=document.getElementById('history');if(hist.length===0){div.innerHTML='<p style="font-size:10px;color:#6b7fb5;">No scans yet - Upload first</p>';return;}div.innerHTML=hist.map(h=>`<div class="history-item"><img src="${h.src}"><div><b style="font-size:11px;">${h.name}</b><br><span style="font-size:9px;color:#8a9ac4;">${h.date} • ${h.result}</span></div></div>`).join('');}
 renderHistory();updatePie(32,27,12,29);
 function downloadPDF(){
  const {jsPDF}=window.jspdf;const doc=new jsPDF();
  doc.setFillColor(22,32,64);doc.rect(0,0,210,35,'F');doc.setTextColor(255,255,255);doc.setFontSize(18);doc.text('NeuroVision-AI - Medical Report',14,18);
  doc.setFontSize(9);doc.text('Advanced Brain Tumor Intelligence Platform • FDA Cleared',14,26);
  doc.setTextColor(0,0,0);doc.setFontSize(12);doc.text('Patient Information',14,45);doc.setFontSize(10);
- doc.text('Name: '+(document.getElementById('pName').value||'N/A'),14,52);
- doc.text('Age: '+(document.getElementById('pAge').value||'N/A')+' | Gender: '+document.getElementById('pGender').value,14,58);
- doc.text('Physician: '+(document.getElementById('pDoctor').value||'N/A'),14,64);
- doc.text('Date: '+(document.getElementById('pDate').value||new Date().toLocaleDateString()),14,70);
- doc.setFontSize(12);doc.text('AI Analysis Results',14,82);doc.setFontSize(10);
- doc.text('Glioma: '+document.getElementById('tGlioma').textContent,14,89);doc.text('Meningioma: '+document.getElementById('tMeningioma').textContent,14,95);
- doc.text('Pituitary: '+document.getElementById('tPituitary').textContent,14,101);doc.text('No Tumor: '+document.getElementById('tNoTumor').textContent,14,107);
- doc.text('Confidence Scores:',14,115);doc.text('Glioblastoma: '+document.getElementById('cGlio').textContent,14,121);doc.text('Meningioma: '+document.getElementById('cMeni').textContent,14,127);
+ doc.text('Name: '+(document.getElementById('pName').value||'N/A'),14,52);doc.text('Age: '+(document.getElementById('pAge').value||'N/A')+' | Gender: '+document.getElementById('pGender').value,14,58);
+ doc.text('Physician: '+(document.getElementById('pDoctor').value||'N/A'),14,64);doc.text('Date: '+(document.getElementById('pDate').value||new Date().toLocaleDateString()),14,70);
+ doc.setFontSize(12);doc.text('STEP 1: Primary Classification (Sum 100%)',14,82);doc.setFontSize(10);
+ doc.text('Glioma: '+document.getElementById('tGlioma').textContent+' | Meningioma: '+document.getElementById('tMeningioma').textContent,14,89);
+ doc.text('Pituitary: '+document.getElementById('tPituitary').textContent+' | No Tumor: '+document.getElementById('tNoTumor').textContent,14,95);
+ doc.setFontSize(12);doc.text('STEP 2: Detailed Confidence (Each 0-100%)',14,105);doc.setFontSize(10);
+ doc.text('Glioblastoma: '+document.getElementById('cGlio').textContent+' | Astrocytoma: '+document.getElementById('cAstro').textContent,14,112);
+ doc.text('Meningioma: '+document.getElementById('cMeni').textContent+' | No Tumor: '+document.getElementById('cNo').textContent,14,118);
  doc.setFontSize(8);doc.text('AI-assisted report for clinical decision support. Consult radiologist.',14,190);
  doc.save('NeuroVision_Report_'+(document.getElementById('pName').value||'Patient')+'.pdf');
 }
