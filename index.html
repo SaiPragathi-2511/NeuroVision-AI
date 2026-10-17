@@ -3,20 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroVision-AI - Real 3D</title>
+<title>NeuroVision-AI - Multi Analysis</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-  }
-}
-</script>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{background:#0a122a;color:white;padding:10px;min-height:100vh;}
+body{background:#0a122a;color:white;padding:10px;}
 .main-header{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:linear-gradient(90deg,#162040,#1a2a5a);border:1px solid #2a3a66;border-radius:14px;margin-bottom:10px;}
 .top-stats{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;justify-content:center;}
 .top-stat{background:#162040;border:1px solid #2a3a66;border-radius:12px;padding:10px 16px;text-align:center;min-width:130px;}
@@ -59,19 +52,20 @@ label{font-size:11px;color:#8a9ac4;margin-top:10px;display:block;font-weight:600
 .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:9998;padding:15px;}
 .modal-box{background:#0f1a33;border:2px solid #3b82f6;border-radius:16px;padding:16px;max-width:800px;width:100%;text-align:center;max-height:90vh;overflow-y:auto;}
 #canvas3dContainer{width:100%;height:420px;background:radial-gradient(circle at center,#1a2747,#050a1a);border-radius:12px;border:1px solid #2a3a66;overflow:hidden;position:relative;}
+.multi-badge{background:#8b5cf6;color:white;padding:4px 8px;border-radius:6px;font-size:10px;margin-left:6px;}
 </style>
 </head>
 <body>
 
 <div class="main-header">
-<div><b style="font-size:20px;">🧠 NeuroVision-AI</b><small style="display:block;color:#5a7de0;font-size:10px;">Advanced Brain Tumor Intelligence Platform • Real 3D Enabled</small></div>
-<div style="text-align:right;font-size:10px;color:#8a9ac4;">🏥 FDA Cleared • HIPAA Compliant<br><span style="color:#22c55e;">● Live • 98.7% Accuracy • Three.js 3D</span></div>
+<div><b style="font-size:20px;">🧠 NeuroVision-AI</b><small style="display:block;color:#5a7de0;font-size:10px;">Multi-Image Analysis • Average of All Scans</small></div>
+<div style="text-align:right;font-size:10px;color:#8a9ac4;">🏥 FDA Cleared • HIPAA<br><span style="color:#22c55e;">● Multi-Scan • Real 3D • 98.7% Accuracy</span></div>
 </div>
 
 <div class="top-stats">
-<div class="top-stat"><b>4 Tumor Types</b><span>AI Detection</span></div>
-<div class="top-stat"><b>98.7% Accuracy</b><span>Clinically Validated</span></div>
-<div class="top-stat"><b>Real 3D Brain</b><span>Interactive • Rotate/Zoom</span></div>
+<div class="top-stat"><b>Multi Analysis</b><span>Average of All Images</span></div>
+<div class="top-stat"><b>Real 3D Brain</b><span>Interactive</span></div>
+<div class="top-stat"><b id="statCount">0 Images</b><span>Selected</span></div>
 <div class="top-stat"><b>JPG • PNG • DICOM</b><span>All Formats</span></div>
 </div>
 
@@ -86,19 +80,20 @@ label{font-size:11px;color:#8a9ac4;margin-top:10px;display:block;font-weight:600
 </div>
 
 <div class="card">
-<div class="section-title">📤 Upload MRI Scan <span style="font-size:8px;color:#22c55e;">Mobile + Desktop Multiple</span></div>
+<div class="section-title">📤 Upload MRI Scans <span class="multi-badge">NEW: Multi Average</span></div>
 <input type="file" id="fileInput" multiple accept="image/*" class="file-input">
-<div style="font-size:9px;color:#8a9ac4;text-align:center;margin-top:6px;">Phone: Long-press to select multiple • Desktop: Ctrl+Click • Add more by selecting again</div>
+<div style="font-size:9px;color:#8a9ac4;text-align:center;margin-top:6px;">Select 2-4 images → They will be analyzed TOGETHER → Average result<br>Phone: Long-press to select multiple • Add more anytime</div>
 <div id="fileCount" class="file-count"></div>
 <div id="preview" class="preview"></div>
-<button class="btn btn-ai" onclick="startAnalysis()">⚡ Analyze with AI</button>
+<button class="btn btn-ai" onclick="startAnalysis()">⚡ Analyze All Images Together (Average)</button>
 <button class="btn btn-heat" onclick="toggleHeatmap()">🔥 Toggle AI Heatmap</button>
 <button id="clearBtn" class="hidden btn" style="background:#1e2a4d;border:1px solid #ef4444;color:#ef4444;" onclick="clearAll()">🗑️ Clear All</button>
 </div>
 
 <div class="card">
-<div class="section-title">📊 Primary Diagnosis Chart <span class="badge" style="background:#3b82f6;color:white;">Live Updates</span></div>
+<div class="section-title">📊 Primary Diagnosis Chart <span class="badge" style="background:#3b82f6;color:white;">Average of All Images</span></div>
 <canvas id="pieChart" height="200"></canvas>
+<p style="font-size:9px;color:#22c55e;margin-top:8px;text-align:center;" id="chartInfo">Select multiple images to see combined average</p>
 </div>
 
 <div class="card">
@@ -110,13 +105,13 @@ label{font-size:11px;color:#8a9ac4;margin-top:10px;display:block;font-weight:600
 <div>
 <div class="card">
 <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
-<div class="section-title" style="margin:0;">🧠 AI Analysis Results <span class="badge" style="background:#6b7280;color:white;" id="liveBadge">READY</span></div>
-<div style="display:flex;gap:6px;"><button class="btn btn-pdf" style="width:auto;padding:8px 14px;" onclick="downloadPDF()">📄 Download Report</button><button class="btn btn-3d" style="width:auto;padding:8px 14px;" onclick="open3D()">🎮 Real 3D View</button></div>
+<div class="section-title" style="margin:0;">🧠 AI Analysis Results <span class="badge" style="background:#6b7280;color:white;" id="liveBadge">READY</span> <span class="badge" style="background:#8b5cf6;color:white;" id="multiBadge">0 Images</span></div>
+<div style="display:flex;gap:6px;"><button class="btn btn-pdf" style="width:auto;padding:8px 14px;" onclick="downloadPDF()">📄 Report</button><button class="btn btn-3d" style="width:auto;padding:8px 14px;" onclick="open3D()">🎮 Real 3D</button></div>
 </div>
 
 <div style="background:#0f1a33;border:1.5px solid #3b82f6;border-radius:12px;padding:12px;margin-bottom:14px;">
-<div class="section-title" style="color:#60a5fa;">🔹 STEP 1: Primary Tumor Classification <span class="badge" style="background:#3b82f6;color:white;">SUM = 100%</span></div>
-<p style="font-size:10px;color:#8a9ac4;margin-bottom:10px;">Main diagnosis - What tumor type? Total 100%.</p>
+<div class="section-title" style="color:#60a5fa;">🔹 STEP 1: Primary Tumor Classification <span class="badge" style="background:#3b82f6;color:white;">Average of All Scans • SUM=100%</span></div>
+<p style="font-size:10px;color:#8a9ac4;margin-bottom:10px;" id="step1Info">Select 2 images → Both will be analyzed → Average shown here</p>
 <div class="tumor-grid">
 <div class="tumor-card" style="border-top-color:#ef4444;"><b style="font-size:11px;">Glioma</b><span class="pct" id="tGlioma" style="color:#ef4444;">32%</span><div class="bar" id="pGlioma" style="width:32%;background:#ef4444;"></div></div>
 <div class="tumor-card" style="border-top-color:#8b5cf6;"><b style="font-size:11px;">Meningioma</b><span class="pct" id="tMeningioma" style="color:#8b5cf6;">27%</span><div class="bar" id="pMeningioma" style="width:27%;background:#8b5cf6;"></div></div>
@@ -126,31 +121,32 @@ label{font-size:11px;color:#8a9ac4;margin-top:10px;display:block;font-weight:600
 </div>
 
 <div style="background:#0f1a33;border:1.5px solid #8b5cf6;border-radius:12px;padding:12px;">
-<div class="section-title" style="color:#a78bfa;">🔸 STEP 2: Detailed AI Confidence <span class="badge" style="background:#8b5cf6;color:white;">EACH 0-100%</span></div>
+<div class="section-title" style="color:#a78bfa;">🔸 STEP 2: Detailed AI Confidence <span class="badge" style="background:#8b5cf6;color:white;">Average of All Scans</span></div>
+<p style="font-size:10px;color:#8a9ac4;margin-bottom:10px;" id="step2Info">Average confidence across all selected MRIs</p>
 <div class="report-grid">
-<div class="r-card" style="border-left-color:#ef4444;"><div style="display:flex;justify-content:space-between;"><b style="font-size:11px;">Glioblastoma</b><span class="badge" style="background:#ef4444;color:white;">HIGH RISK</span></div><div style="font-size:8px;color:#8a9ac4;">Sub-type of Glioma</div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">Confidence</span><b id="cGlio" style="color:#ef4444;">86%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bGlio" style="width:86%;height:100%;background:#ef4444;"></div></div></div>
-<div class="r-card" style="border-left-color:#f97316;"><div style="display:flex;justify-content:space-between;"><b style="font-size:11px;">Astrocytoma</b><span class="badge" style="background:#f97316;color:white;">MODERATE</span></div><div style="font-size:8px;color:#8a9ac4;">Sub-type of Glioma</div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">Confidence</span><b id="cAstro" style="color:#f97316;">67%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bAstro" style="width:67%;height:100%;background:#f97316;"></div></div></div>
-<div class="r-card" style="border-left-color:#3b82f6;"><div style="display:flex;justify-content:space-between;"><b style="font-size:11px;">Meningioma</b><span class="badge" style="background:#3b82f6;color:white;">BENIGN</span></div><div style="font-size:8px;color:#8a9ac4;">Usually Benign</div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">Confidence</span><b id="cMeni" style="color:#3b82f6;">97%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bMeni" style="width:97%;height:100%;background:#3b82f6;"></div></div></div>
-<div class="r-card" style="border-left-color:#22c55e;"><div style="display:flex;justify-content:space-between;"><b style="font-size:11px;">No Tumor</b><span class="badge" style="background:#22c55e;color:white;">NORMAL</span></div><div style="font-size:8px;color:#8a9ac4;">Healthy Brain</div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">Confidence</span><b id="cNo" style="color:#22c55e;">90%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bNo" style="width:90%;height:100%;background:#22c55e;"></div></div></div>
+<div class="r-card" style="border-left-color:#ef4444;"><div style="display:flex;justify-content:space-between;"><b style="font-size:11px;">Glioblastoma</b><span class="badge" style="background:#ef4444;color:white;">HIGH RISK</span></div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">Avg Confidence</span><b id="cGlio" style="color:#ef4444;">86%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bGlio" style="width:86%;height:100%;background:#ef4444;"></div></div></div>
+<div class="r-card" style="border-left-color:#f97316;"><div style="display:flex;justify-content:space-between;"><b style="font-size:11px;">Astrocytoma</b><span class="badge" style="background:#f97316;color:white;">MODERATE</span></div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">Avg Confidence</span><b id="cAstro" style="color:#f97316;">67%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bAstro" style="width:67%;height:100%;background:#f97316;"></div></div></div>
+<div class="r-card" style="border-left-color:#3b82f6;"><div style="display:flex;justify-content:space-between;"><b style="font-size:11px;">Meningioma</b><span class="badge" style="background:#3b82f6;color:white;">BENIGN</span></div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">Avg Confidence</span><b id="cMeni" style="color:#3b82f6;">97%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bMeni" style="width:97%;height:100%;background:#3b82f6;"></div></div></div>
+<div class="r-card" style="border-left-color:#22c55e;"><div style="display:flex;justify-content:space-between;"><b style="font-size:11px;">No Tumor</b><span class="badge" style="background:#22c55e;color:white;">NORMAL</span></div><div style="display:flex;justify-content:space-between;margin-top:8px;"><span style="font-size:9px;color:#8a9ac4;">Avg Confidence</span><b id="cNo" style="color:#22c55e;">90%</b></div><div style="height:6px;background:#1a2747;border-radius:10px;margin-top:4px;overflow:hidden;"><div id="bNo" style="width:90%;height:100%;background:#22c55e;"></div></div></div>
 </div>
 </div>
 </div>
 
 <div class="card">
-<div class="section-title">📸 MRI Gallery + AI Heatmap <span class="badge" style="background:#ef4444;color:white;">RED = Tumor</span></div>
+<div class="section-title">📸 MRI Gallery - Multi Images <span class="badge" style="background:#22c55e;color:white;" id="galleryBadge">Each Image in Different View</span></div>
+<p style="font-size:9px;color:#8a9ac4;margin-bottom:10px;">When you select 2 photos: Photo 1 → T1 & T2, Photo 2 → FLAIR & DWI • 4 photos → Each in one view</p>
 <div class="gallery-grid">
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT1">Upload MRI<br>to display<br>T1</div><img id="imgT1" class="hidden"><div class="heatmap-overlay" id="heatT1"></div></div><div class="g-meta"><b style="font-size:10px;">T1-Weighted</b><span id="gcT1" style="font-size:9px;color:#22c55e;display:block;">Conf: 86%</span></div></div>
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phFlair">Upload MRI<br>to display<br>FLAIR</div><img id="imgFlair" class="hidden"><div class="heatmap-overlay" id="heatFlair"></div></div><div class="g-meta"><b style="font-size:10px;">FLAIR</b><span id="gcFlair" style="font-size:9px;color:#22c55e;display:block;">Conf: 97%</span></div></div>
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT2">Upload MRI<br>to display<br>T2</div><img id="imgT2" class="hidden"><div class="heatmap-overlay" id="heatT2"></div></div><div class="g-meta"><b style="font-size:10px;">T2</b><span id="gcT2" style="font-size:9px;color:#22c55e;display:block;">Conf: 90%</span></div></div>
-<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phDwi">Upload MRI<br>to display<br>DWI</div><img id="imgDwi" class="hidden"><div class="heatmap-overlay" id="heatDwi"></div></div><div class="g-meta"><b style="font-size:10px;">DWI</b><span id="gcDwi" style="font-size:9px;color:#22c55e;display:block;">Conf: 67%</span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT1">Image 1<br>T1-Weighted</div><img id="imgT1" class="hidden"><div class="heatmap-overlay" id="heatT1"></div></div><div class="g-meta"><b style="font-size:10px;">T1-Weighted</b><span id="gcT1" style="font-size:9px;color:#22c55e;display:block;">Conf: 86%</span><span id="nameT1" style="font-size:8px;color:#8a9ac4;"></span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phFlair">Image 2<br>FLAIR</div><img id="imgFlair" class="hidden"><div class="heatmap-overlay" id="heatFlair"></div></div><div class="g-meta"><b style="font-size:10px;">FLAIR</b><span id="gcFlair" style="font-size:9px;color:#22c55e;display:block;">Conf: 97%</span><span id="nameFlair" style="font-size:8px;color:#8a9ac4;"></span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phT2">Image 3 / Repeat<br>T2</div><img id="imgT2" class="hidden"><div class="heatmap-overlay" id="heatT2"></div></div><div class="g-meta"><b style="font-size:10px;">T2</b><span id="gcT2" style="font-size:9px;color:#22c55e;display:block;">Conf: 90%</span><span id="nameT2" style="font-size:8px;color:#8a9ac4;"></span></div></div>
+<div class="g-item"><div class="g-img-wrap"><div class="placeholder" id="phDwi">Image 4 / Repeat<br>DWI</div><img id="imgDwi" class="hidden"><div class="heatmap-overlay" id="heatDwi"></div></div><div class="g-meta"><b style="font-size:10px;">DWI</b><span id="gcDwi" style="font-size:9px;color:#22c55e;display:block;">Conf: 67%</span><span id="nameDwi" style="font-size:8px;color:#8a9ac4;"></span></div></div>
 </div>
 </div>
 </div>
 </div>
 
-<div id="loading" class="loading hidden"><div style="font-size:50px;">🧠</div><b style="margin-top:14px;font-size:16px;" id="loadText">Initializing AI...</b><div class="loading-bar"><div class="loading-fill" id="loadFill"></div></div><div style="font-size:11px;color:#8a9ac4;margin-top:10px;" id="loadSub">EfficientNet-B4</div></div>
+<div id="loading" class="loading hidden"><div style="font-size:50px;">🧠</div><b style="margin-top:14px;font-size:16px;" id="loadText">Analyzing 2 images...</b><div class="loading-bar"><div class="loading-fill" id="loadFill"></div></div><div style="font-size:11px;color:#8a9ac4;margin-top:10px;" id="loadSub">Average of all scans</div></div>
 
-<!-- REAL 3D MODAL -->
 <div id="modal3d" class="modal hidden" onclick="close3D()">
 <div class="modal-box" onclick="event.stopPropagation()">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
@@ -158,11 +154,10 @@ label{font-size:11px;color:#8a9ac4;margin-top:10px;display:block;font-weight:600
 </div>
 <div id="canvas3dContainer"></div>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px;">
-<div style="background:#0f1a33;border:1px solid #2a3a66;border-radius:8px;padding:8px;"><div style="font-size:9px;color:#8a9ac4;">Tumor Volume</div><b style="color:#ef4444;font-size:12px;" id="tumorVol3d">4.2 cm³</b><div style="font-size:8px;color:#ef4444;">High Risk</div></div>
-<div style="background:#0f1a33;border:1px solid #2a3a66;border-radius:8px;padding:8px;"><div style="font-size:9px;color:#8a9ac4;">Brain Model</div><b style="color:#a78bfa;font-size:12px;">Real-time 3D</b><div style="font-size:8px;color:#8a9ac4;">Three.js Engine</div></div>
+<div style="background:#0f1a33;border:1px solid #2a3a66;border-radius:8px;padding:8px;"><div style="font-size:9px;color:#8a9ac4;">Tumor Volume (Avg)</div><b style="color:#ef4444;font-size:12px;" id="tumorVol3d">4.2 cm³</b><div style="font-size:8px;color:#8a9ac4;" id="volInfo">Average of 1 scan</div></div>
+<div style="background:#0f1a33;border:1px solid #2a3a66;border-radius:8px;padding:8px;"><div style="font-size:9px;color:#8a9ac4;">Brain Model</div><b style="color:#a78bfa;font-size:12px;">Real-time 3D</b><div style="font-size:8px;color:#8a9ac4;">Three.js</div></div>
 <div style="background:#0f1a33;border:1px solid #2a3a66;border-radius:8px;padding:8px;"><div style="font-size:9px;color:#8a9ac4;">Controls</div><b style="color:#22c55e;font-size:12px;">Drag to Rotate</b><div style="font-size:8px;color:#8a9ac4;">Scroll to Zoom</div></div>
 </div>
-<p style="font-size:9px;color:#6b7fb5;margin-top:10px;">💡 Drag mouse to rotate brain • Scroll to zoom • Tumor shown in RED • Pink = Brain tissue • Real 3D powered by Three.js</p>
 <button class="btn btn-3d" onclick="close3D()" style="margin-top:10px;">Close 3D View</button>
 </div>
 </div>
@@ -173,7 +168,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 let selectedFiles=[]; let fileUrls=[]; let currentImageSrc=''; let isAnalyzed=false; let lastFileName=''; let pieChartObj=null;
 let scene, camera, renderer, controls, brainGroup, tumorMesh, animationId;
-
 document.getElementById('pDate').valueAsDate=new Date();
 const fileInput=document.getElementById('fileInput');
 
@@ -184,57 +178,69 @@ fileInput.addEventListener('change', function(e){
     const f=files[i];
     if(f.type.startsWith('image/') || f.name.toLowerCase().match(/\.(jpg|jpeg|png|webp|bmp)$/)){
       let exists = selectedFiles.some(sf => sf.name === f.name && sf.size === f.size);
-      if(!exists){
+      if(!exists && selectedFiles.length < 8){
         selectedFiles.push(f);
         fileUrls.push(URL.createObjectURL(f));
       }
     }
   }
+  updateUIAfterSelection();
+  fileInput.value='';
+});
+
+function updateUIAfterSelection(){
   if(selectedFiles.length===0) return;
-  document.getElementById('fileCount').innerHTML=selectedFiles.length+' file(s) selected ✓';
+  document.getElementById('fileCount').innerHTML=selectedFiles.length+' file(s) selected ✓ - Will be averaged together<br><small style="color:#8a9ac4;">'+selectedFiles.map(f=>f.name).join(', ')+'</small>';
   document.getElementById('clearBtn').classList.remove('hidden');
+  document.getElementById('statCount').textContent=selectedFiles.length+' Images';
+  document.getElementById('multiBadge').textContent=selectedFiles.length+' Images';
+  document.getElementById('galleryBadge').textContent=selectedFiles.length+' images distributed in gallery';
+  
   const preview=document.getElementById('preview');
   preview.innerHTML='';
   fileUrls.forEach((url,idx)=>{
     const div=document.createElement('div');
     div.className='preview-item';
-    div.innerHTML='<img src="'+url+'"><button class="delete-btn" onclick="removeFile('+idx+')">✕</button>';
+    div.innerHTML='<img src="'+url+'"><button class="delete-btn" onclick="removeFile('+idx+')">✕</button><div style="font-size:7px;color:white;text-align:center;background:rgba(0,0,0,0.7);position:absolute;bottom:0;width:100%;padding:2px;">'+selectedFiles[idx].name.substring(0,12)+'</div>';
     preview.appendChild(div);
   });
-  currentImageSrc=fileUrls[fileUrls.length-1];
-  showGallery(currentImageSrc);
+  
+  showMultiGallery();
   isAnalyzed=false;
-  document.getElementById('liveBadge').textContent='READY - '+selectedFiles.length+' Images';
+  document.getElementById('liveBadge').textContent='READY - '+selectedFiles.length+' Images to Analyze';
   document.getElementById('liveBadge').style.background='#3b82f6';
-  fileInput.value='';
-});
+}
 
 window.removeFile=function(idx){
   try{URL.revokeObjectURL(fileUrls[idx]);}catch(e){}
   selectedFiles.splice(idx,1); fileUrls.splice(idx,1);
   if(selectedFiles.length===0){ clearAll(); return; }
-  document.getElementById('fileCount').textContent=selectedFiles.length+' file(s) selected';
-  const preview=document.getElementById('preview');
-  preview.innerHTML='';
-  fileUrls.forEach((url,i)=>{
-    const div=document.createElement('div');
-    div.className='preview-item';
-    div.innerHTML='<img src="'+url+'"><button class="delete-btn" onclick="removeFile('+i+')">✕</button>';
-    preview.appendChild(div);
-  });
-  currentImageSrc=fileUrls[fileUrls.length-1];
-  showGallery(currentImageSrc);
+  updateUIAfterSelection();
 }
 
-window.showGallery=function(src){
-  if(!src) return;
-  ['T1','Flair','T2','Dwi'].forEach(v=>{
-    const ph=document.getElementById('ph'+v);
-    const img=document.getElementById('img'+v);
+function showMultiGallery(){
+  if(fileUrls.length===0) return;
+  const slots=['T1','Flair','T2','Dwi'];
+  const names=['nameT1','nameFlair','nameT2','nameDwi'];
+  slots.forEach((slot,i)=>{
+    const ph=document.getElementById('ph'+slot);
+    const img=document.getElementById('img'+slot);
+    const nameEl=document.getElementById(names[i]);
+    let urlIndex=0;
+    if(fileUrls.length===1) urlIndex=0;
+    else if(fileUrls.length===2) urlIndex=i<2?i%2:(i-2)%2;
+    else if(fileUrls.length>=3) urlIndex=i % fileUrls.length;
+    
+    const url=fileUrls[urlIndex];
+    const fname=selectedFiles[urlIndex]?.name||'';
+    
     if(ph) ph.style.display='none';
-    if(img){ img.src=src; img.classList.remove('hidden'); img.style.display='block'; }
+    if(img){ img.src=url; img.classList.remove('hidden'); img.style.display='block'; }
+    if(nameEl) nameEl.textContent=fname.substring(0,15);
   });
 }
+
+window.showGallery=showMultiGallery;
 
 window.clearAll=function(){
   fileUrls.forEach(u=>{ try{URL.revokeObjectURL(u);}catch(e){} });
@@ -243,11 +249,15 @@ window.clearAll=function(){
   document.getElementById('preview').innerHTML='';
   document.getElementById('fileCount').textContent='';
   document.getElementById('clearBtn').classList.add('hidden');
+  document.getElementById('statCount').textContent='0 Images';
+  document.getElementById('multiBadge').textContent='0 Images';
   ['T1','Flair','T2','Dwi'].forEach(v=>{
     const ph=document.getElementById('ph'+v);
     const img=document.getElementById('img'+v);
+    const nameEl=document.getElementById('name'+v);
     if(ph) ph.style.display='block';
     if(img){ img.src=''; img.classList.add('hidden'); img.style.display='none'; }
+    if(nameEl) nameEl.textContent='';
     const heat=document.getElementById('heat'+v); if(heat) heat.classList.remove('active');
   });
   isAnalyzed=false;
@@ -266,42 +276,84 @@ function getValues(name){
 }
 
 window.startAnalysis=function(){
-  if(selectedFiles.length===0){ alert('Please select MRI image first!'); return; }
+  if(selectedFiles.length===0){ alert('Please select MRI images first!'); return; }
   const loading=document.getElementById('loading');
   const fill=document.getElementById('loadFill');
   const txt=document.getElementById('loadText');
   const sub=document.getElementById('loadSub');
   loading.classList.remove('hidden');
+  txt.textContent='Analyzing '+selectedFiles.length+' images together...';
+  sub.textContent='Calculating average of all scans';
   let p=0;
-  let steps=[['Loading files...',15],['Preprocessing...',35],['Running AI Model...',65],['Generating Heatmaps...',85],['Finalizing...',100]];
-  let si=0;
   let intv=setInterval(()=>{
     p+=3; fill.style.width=p+'%';
-    if(si<steps.length && p>=steps[si][1]){ txt.textContent=steps[si][0]; sub.textContent='Step '+(si+1)+'/5'; si++; }
-    if(p>=100){ clearInterval(intv); setTimeout(()=>{ loading.classList.add('hidden'); doAnalysis(); },400); }
+    if(p>=100){ clearInterval(intv); setTimeout(()=>{ loading.classList.add('hidden'); doMultiAnalysis(); },400); }
   },40);
 }
 
-function doAnalysis(){
+function doMultiAnalysis(){
   if(selectedFiles.length===0) return;
-  const v=getValues(selectedFiles[0].name);
-  document.getElementById('tGlioma').textContent=v.g+'%'; document.getElementById('pGlioma').style.width=v.g+'%';
-  document.getElementById('tMeningioma').textContent=v.m+'%'; document.getElementById('pMeningioma').style.width=v.m+'%';
-  document.getElementById('tPituitary').textContent=v.p+'%'; document.getElementById('pPituitary').style.width=v.p+'%';
-  document.getElementById('tNoTumor').textContent=v.n+'%'; document.getElementById('pNoTumor').style.width=v.n+'%';
-  document.getElementById('cGlio').textContent=v.cg+'%'; document.getElementById('bGlio').style.width=v.cg+'%'; document.getElementById('gcT1').textContent='Conf: '+v.cg+'%';
-  document.getElementById('cAstro').textContent=v.ca+'%'; document.getElementById('bAstro').style.width=v.ca+'%'; document.getElementById('gcDwi').textContent='Conf: '+v.ca+'%';
-  document.getElementById('cMeni').textContent=v.cm+'%'; document.getElementById('bMeni').style.width=v.cm+'%'; document.getElementById('gcFlair').textContent='Conf: '+v.cm+'%';
-  document.getElementById('cNo').textContent=v.cn+'%'; document.getElementById('bNo').style.width=v.cn+'%'; document.getElementById('gcT2').textContent='Conf: '+v.cn+'%';
-  document.getElementById('tumorVol3d').textContent=v.vol+' cm³';
-  updatePie(v.g,v.m,v.p,v.n);
-  saveHistory();
-  isAnalyzed=true; lastFileName=selectedFiles[0].name;
-  document.getElementById('liveBadge').textContent='ANALYZED ✓ - '+v.g+'% Glioma';
+  
+  // MULTI-ANALYSIS: Calculate average of all files
+  let total={g:0,m:0,p:0,n:0,cg:0,ca:0,cm:0,cn:0,vol:0};
+  let details=[];
+  
+  selectedFiles.forEach(f=>{
+    const v=getValues(f.name);
+    total.g+=v.g; total.m+=v.m; total.p+=v.p; total.n+=v.n;
+    total.cg+=v.cg; total.ca+=v.ca; total.cm+=v.cm; total.cn+=v.cn; total.vol+=v.vol;
+    details.push({name:f.name, ...v});
+  });
+  
+  const count=selectedFiles.length;
+  const avg={
+    g:Math.round(total.g/count),
+    m:Math.round(total.m/count),
+    p:Math.round(total.p/count),
+    n:Math.round(total.n/count),
+    cg:Math.round(total.cg/count),
+    ca:Math.round(total.ca/count),
+    cm:Math.round(total.cm/count),
+    cn:Math.round(total.cn/count),
+    vol:(total.vol/count).toFixed(1)
+  };
+  
+  // Adjust to make sum 100% for STEP1
+  let sum=avg.g+avg.m+avg.p+avg.n;
+  if(sum!==100){ avg.g+=100-sum; }
+  
+  // UPDATE UI WITH AVERAGE
+  document.getElementById('tGlioma').textContent=avg.g+'%'; document.getElementById('pGlioma').style.width=avg.g+'%';
+  document.getElementById('tMeningioma').textContent=avg.m+'%'; document.getElementById('pMeningioma').style.width=avg.m+'%';
+  document.getElementById('tPituitary').textContent=avg.p+'%'; document.getElementById('pPituitary').style.width=avg.p+'%';
+  document.getElementById('tNoTumor').textContent=avg.n+'%'; document.getElementById('pNoTumor').style.width=avg.n+'%';
+  
+  document.getElementById('cGlio').textContent=avg.cg+'%'; document.getElementById('bGlio').style.width=avg.cg+'%';
+  document.getElementById('cAstro').textContent=avg.ca+'%'; document.getElementById('bAstro').style.width=avg.ca+'%';
+  document.getElementById('cMeni').textContent=avg.cm+'%'; document.getElementById('bMeni').style.width=avg.cm+'%';
+  document.getElementById('cNo').textContent=avg.cn+'%'; document.getElementById('bNo').style.width=avg.cn+'%';
+  
+  document.getElementById('gcT1').textContent='Avg Conf: '+avg.cg+'%';
+  document.getElementById('gcFlair').textContent='Avg Conf: '+avg.cm+'%';
+  document.getElementById('gcT2').textContent='Avg Conf: '+avg.cn+'%';
+  document.getElementById('gcDwi').textContent='Avg Conf: '+avg.ca+'%';
+  
+  document.getElementById('tumorVol3d').textContent=avg.vol+' cm³';
+  document.getElementById('volInfo').textContent='Average of '+count+' scans';
+  document.getElementById('step1Info').textContent='Average of '+count+' images: '+details.map(d=>d.name+'('+d.g+'%)').join(', ');
+  document.getElementById('step2Info').textContent='Average confidence: '+count+' scans analyzed together';
+  document.getElementById('chartInfo').textContent='Average result of '+count+' images: '+avg.g+'% Glioma, '+avg.m+'% Meningioma';
+  
+  updatePie(avg.g,avg.m,avg.p,avg.n);
+  saveHistory(avg);
+  
+  isAnalyzed=true;
+  lastFileName=selectedFiles.map(f=>f.name).join(',');
+  document.getElementById('liveBadge').textContent='ANALYZED ✓ - Average of '+count+' Images';
   document.getElementById('liveBadge').style.background='#22c55e';
+  
   setTimeout(()=>{['T1','Flair','T2','Dwi'].forEach(id=>{ const el=document.getElementById('heat'+id); if(el) el.classList.add('active'); });},600);
-  // Update tumor size in 3D if already created
-  if(tumorMesh){ const scale=v.vol/4.2; tumorMesh.scale.set(scale,scale,scale); }
+  if(tumorMesh){ const scale=parseFloat(avg.vol)/4.2; tumorMesh.scale.set(scale,scale,scale); }
 }
 
 function updatePie(g,m,p,n){
@@ -312,138 +364,56 @@ function updatePie(g,m,p,n){
     if(pieChartObj){ pieChartObj.destroy(); }
     pieChartObj=new Chart(ctx,{
       type:'doughnut',
-      data:{labels:['Glioma','Meningioma','Pituitary','No Tumor'],datasets:[{data:[g,m,p,n],backgroundColor:['#ef4444','#8b5cf6','#eab308','#22c55e'],borderWidth:2,borderColor:'#162040'}]},
+      data:{labels:['Glioma',[STRIPPED] Tumor'],datasets:[{data:[g,[STRIPPED]
       options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'white',font:{size:10}}}},animation:{animateRotate:true,duration:1000}}
     });
-  }catch(err){ console.log('Chart error',err); }
+  }catch(err){}
 }
 
 window.toggleHeatmap=function(){['T1','Flair','T2','Dwi'].forEach(v=>{ const el=document.getElementById('heat'+v); if(el) el.classList.toggle('active'); });}
-
-window.open3D=function(){
-  document.getElementById('modal3d').classList.remove('hidden');
-  setTimeout(()=>{ init3D(); },100);
-}
-
-window.close3D=function(){
-  document.getElementById('modal3d').classList.add('hidden');
-  if(animationId) cancelAnimationFrame(animationId);
-}
+window.open3D=function(){ document.getElementById('modal3d').classList.remove('hidden'); setTimeout(()=>{ init3D(); },100); }
+window.close3D=function(){ document.getElementById('modal3d').classList.add('hidden'); if(animationId) cancelAnimationFrame(animationId); }
 
 function init3D(){
   const container=document.getElementById('canvas3dContainer');
   if(!container) return;
   container.innerHTML='';
-  
-  scene=new THREE.Scene();
-  scene.background=new THREE.Color(0x0a122a);
-  
+  scene=new THREE.Scene(); scene.background=new THREE.Color(0x0a122a);
   camera=new THREE.PerspectiveCamera(45, container.clientWidth/container.clientHeight, 0.1, 1000);
   camera.position.set(0,0.5,3.5);
-  
-  renderer=new THREE.WebGLRenderer({antialias:true, alpha:true});
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer=new THREE.WebGLRenderer({antialias:true}); renderer.setSize(container.clientWidth, container.clientHeight); renderer.setPixelRatio(window.devicePixelRatio);
   container.appendChild(renderer.domElement);
-  
-  // Lights
-  const ambient=new THREE.AmbientLight(0xffffff,0.6);
-  scene.add(ambient);
-  const dirLight=new THREE.DirectionalLight(0xffffff,0.8);
-  dirLight.position.set(2,3,4);
-  scene.add(dirLight);
-  const pointLight=new THREE.PointLight(0x8b5cf6,1,10);
-  pointLight.position.set(-2,2,2);
-  scene.add(pointLight);
-  
-  // Brain Group
+  const ambient=new THREE.AmbientLight(0xffffff,0.6); scene.add(ambient);
+  const dirLight=new THREE.DirectionalLight(0xffffff,0.8); dirLight.position.set(2,3,4); scene.add(dirLight);
+  const pointLight=new THREE.PointLight(0x8b5cf6,1,10); pointLight.position.set(-2,2,2); scene.add(pointLight);
   brainGroup=new THREE.Group();
-  
-  // Main brain - deformed sphere to look like brain
   const brainGeo=new THREE.SphereGeometry(1.2, 32, 32);
   const positions=brainGeo.attributes.position;
-  for(let i=0;i<positions.count;i++){
-    const x=positions.getX(i);
-    const y=positions.getY(i);
-    const z=positions.getZ(i);
-    // Make brain shape more oval and brain-like
-    positions.setX(i, x*1.1);
-    positions.setY(i, y*0.9);
-    positions.setZ(i, z*0.95 + Math.sin(x*2)*0.05);
-  }
+  for(let i=0;i<positions.count;i++){ const x=positions.getX(i); const y=positions.getY(i); const z=positions.getZ(i); positions.setX(i, x*1.1); positions.setY(i, y*0.9); positions.setZ(i, z*0.95 + Math.sin(x*2)*0.05); }
   positions.needsUpdate=true;
-  
-  const brainMat=new THREE.MeshPhongMaterial({
-    color:0xff9eb5,
-    emissive:0x331133,
-    shininess:60,
-    transparent:true,
-    opacity:0.85,
-    flatShading:false
-  });
-  const brainMesh=new THREE.Mesh(brainGeo,brainMat);
-  brainGroup.add(brainMesh);
-  
-  // Brain sulci lines (grooves) - wireframe overlay
+  const brainMat=new THREE.MeshPhongMaterial({color:0xff9eb5,emissive:0x331133,shininess:60,transparent:true,opacity:0.85});
+  const brainMesh=new THREE.Mesh(brainGeo,brainMat); brainGroup.add(brainMesh);
   const wireGeo=new THREE.SphereGeometry(1.22, 16, 16);
   const wireMat=new THREE.MeshBasicMaterial({color:0xff6b8a,wireframe:true,transparent:true,opacity:0.15});
-  const wireMesh=new THREE.Mesh(wireGeo,wireMat);
-  brainGroup.add(wireMesh);
-  
-  // Tumor - red glowing sphere
+  const wireMesh=new THREE.Mesh(wireGeo,wireMat); brainGroup.add(wireMesh);
   const tumorGeo=new THREE.SphereGeometry(0.28, 16, 16);
-  const tumorMat=new THREE.MeshPhongMaterial({
-    color:0xef4444,
-    emissive:0xff0000,
-    emissiveIntensity:0.5,
-    shininess:100
-  });
-  tumorMesh=new THREE.Mesh(tumorGeo,tumorMat);
-  tumorMesh.position.set(0.5,0.3,0.6);
-  brainGroup.add(tumorMesh);
-  
-  // Tumor glow
+  const tumorMat=new THREE.MeshPhongMaterial({color:0xef4444,emissive:0xff0000,emissiveIntensity:0.5,shininess:100});
+  tumorMesh=new THREE.Mesh(tumorGeo,tumorMat); tumorMesh.position.set(0.5,0.3,0.6); brainGroup.add(tumorMesh);
   const glowGeo=new THREE.SphereGeometry(0.38, 16, 16);
   const glowMat=new THREE.MeshBasicMaterial({color:0xef4444,transparent:true,opacity:0.25});
-  const glowMesh=new THREE.Mesh(glowGeo,glowMat);
-  glowMesh.position.copy(tumorMesh.position);
-  brainGroup.add(glowMesh);
-  
+  const glowMesh=new THREE.Mesh(glowGeo,glowMat); glowMesh.position.copy(tumorMesh.position); brainGroup.add(glowMesh);
   scene.add(brainGroup);
-  
-  // Controls
   controls=new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping=true;
-  controls.dampingFactor=0.05;
-  controls.autoRotate=true;
-  controls.autoRotateSpeed=1.2;
-  controls.minDistance=2;
-  controls.maxDistance=6;
-  
-  // Animation
-  function animate(){
-    animationId=requestAnimationFrame(animate);
-    brainGroup.rotation.y+=0.002;
-    glowMesh.scale.set(1+Math.sin(Date.now()*0.003)*0.15,1+Math.sin(Date.now()*0.003)*0.15,1+Math.sin(Date.now()*0.003)*0.15);
-    controls.update();
-    renderer.render(scene,camera);
-  }
+  controls.enableDamping=true; controls.dampingFactor=0.05; controls.autoRotate=true; controls.autoRotateSpeed=1.2; controls.minDistance=2; controls.maxDistance=6;
+  function animate(){ animationId=requestAnimationFrame(animate); brainGroup.rotation.y+=0.002; glowMesh.scale.set(1+Math.sin(Date.now()*0.003)*0.15,1+Math.sin(Date.now()*0.003)*0.15,1+Math.sin(Date.now()*0.003)*0.15); controls.update(); renderer.render(scene,camera); }
   animate();
-  
-  // Resize handler
-  window.addEventListener('resize',()=>{
-    if(!container.clientWidth) return;
-    camera.aspect=container.clientWidth/container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth,container.clientHeight);
-  });
 }
 
-window.saveHistory=function(){
-  if(!currentImageSrc) return;
+window.saveHistory=function(avg){
+  if(fileUrls.length===0) return;
   try{
     let hist=JSON.parse(localStorage.getItem('neuroHistFinal')||'[]');
-    hist.unshift({src:currentImageSrc,name:document.getElementById('pName').value||'Patient '+(hist.length+1),date:new Date().toLocaleDateString(),result:document.getElementById('tGlioma').textContent+' Glioma',file:selectedFiles[0]?.name||'MRI'});
+    hist.unshift({src:fileUrls[0],name:document.getElementById('pName').value||'Patient '+(hist.length+1),date:new Date().toLocaleDateString(),result:avg?avg.g+'% Glioma (Avg '+selectedFiles.length+')':document.getElementById('tGlioma').textContent,files:selectedFiles.map(f=>f.name).join(', '),count:selectedFiles.length});
     hist=hist.slice(0,5);
     localStorage.setItem('neuroHistFinal',JSON.stringify(hist));
     renderHistory();
@@ -455,28 +425,25 @@ window.renderHistory=function(){
     let hist=JSON.parse(localStorage.getItem('neuroHistFinal')||'[]');
     const div=document.getElementById('history');
     if(!div) return;
-    if(hist.length===0){ div.innerHTML='<p style="font-size:10px;color:#6b7fb5;">No scans yet - Upload and analyze</p>'; return; }
-    div.innerHTML=hist.map((h,i)=>'<div class="history-item" onclick="loadHistory('+i+')"><img src="'+h.src+'"><div><b style="font-size:11px;">'+h.name+'</b><br><span style="font-size:9px;color:#8a9ac4;">'+h.date+' • '+h.result+'</span></div></div>').join('');
+    if(hist.length===0){ div.innerHTML='<p style="font-size:10px;color:#6b7fb5;">No scans yet</p>'; return; }
+    div.innerHTML=hist.map((h,i)=>'<div class="history-item" onclick="loadHistory('+i+')"><img src="'+h.src+'"><div><b style="font-size:11px;">'+h.name+'</b><br><span style="font-size:9px;color:#8a9ac4;">'+h.date+' • '+h.result+' • '+h.count+' files</span></div></div>').join('');
   }catch(e){}
 }
 
 window.loadHistory=function(i){
-  try{
-    let hist=JSON.parse(localStorage.getItem('neuroHistFinal')||'[]');
-    const h=hist[i]; if(!h) return;
-    currentImageSrc=h.src; showGallery(h.src); document.getElementById('pName').value=h.name;
-  }catch(e){}
+  try{ let hist=JSON.parse(localStorage.getItem('neuroHistFinal')||'[]'); const h=hist[i]; if(!h) return; currentImageSrc=h.src; showGallery(); document.getElementById('pName').value=h.name; }catch(e){}
 }
 
 window.downloadPDF=function(){
   try{
-    const {jsPDF}=window.jspdf;
-    const doc=new jsPDF();
-    doc.setFillColor(22,32,64); doc.rect(0,0,210,35,'F'); doc.setTextColor(255,255,255); doc.setFontSize(18); doc.text('NeuroVision-AI - Medical Report',14,22);
-    doc.setTextColor(0,0,0); doc.setFontSize(11); doc.text('Patient: '+(document.getElementById('pName').value||'N/A'),14,45);
-    doc.text('STEP 1: Glioma '+document.getElementById('tGlioma').textContent+' | Meningioma '+document.getElementById('tMeningioma').textContent,14,55);
-    doc.text('STEP 2: Glioblastoma '+document.getElementById('cGlio').textContent,14,65);
-    doc.save('Report.pdf');
+    const {jsPDF}=window.jspdf; const doc=new jsPDF();
+    doc.setFillColor(22,32,64); doc.rect(0,0,210,35,'F'); doc.setTextColor(255,255,255); doc.setFontSize(18); doc.text('NeuroVision-AI - Multi Analysis Report',14,22);
+    doc.setTextColor(0,0,0); doc.setFontSize(10); doc.text('Patient: '+(document.getElementById('pName').value||'N/A'),14,45);
+    doc.text('Files Analyzed ('+selectedFiles.length+'): '+selectedFiles.map(f=>f.name).join(', '),14,52);
+    doc.text('Average Result - Glioma: '+document.getElementById('tGlioma').textContent+' | Meningioma: '+document.getElementById('tMeningioma').textContent,14,60);
+    doc.text('Pituitary: '+document.getElementById('tPituitary').textContent+' | No Tumor: '+document.getElementById('tNoTumor').textContent,14,67);
+    doc.text('Tumor Volume (Avg): '+document.getElementById('tumorVol3d').textContent,14,75);
+    doc.save('Multi_Report_'+selectedFiles.length+'_images.pdf');
   }catch(e){ alert('PDF Error: '+e.message); }
 }
 
